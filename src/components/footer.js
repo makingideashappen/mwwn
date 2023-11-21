@@ -54,11 +54,11 @@ const socialMedia = {
   },
 }
 
-const getSocialURL = ({ service, username }) => {
-  const domain = socialMedia[service]?.url
-  if (!domain) return false
-  return `${domain}/${username}`
-}
+// const getSocialURL = ({ service, username }) => {
+//   const domain = socialMedia[service]?.url
+//   if (!domain) return false
+//   return `${domain}/${username}`
+// }
 
 const getSocialIcon = ({ service }) => {
   return socialMedia[service]?.icon
@@ -109,7 +109,8 @@ export default function Footer() {
           <FlexList>
             {socialLinks &&
               socialLinks.map((link) => {
-                const url = getSocialURL(link)
+                // const url = getSocialURL(link)
+                const url=""
                 return (
                   url && (
                     <li key={link.id}>
@@ -126,20 +127,20 @@ export default function Footer() {
         <Space size={5} />
         <Flex variant="start" responsive>
           <FlexList variant="start" responsive>
-            {links &&
+            {/* {links &&
               links.map((link) => (
                 <li key={link.id}>
                   <NavLink to={link.href}>{link.text}</NavLink>
                 </li>
-              ))}
+              ))} */}
           </FlexList>
           <Space />
           <FlexList>
             {meta &&
-              meta.map((link) => (
-                <li key={link.id}>
-                  <NavLink to={link.href}>
-                    <Text variant="small">{link.text}</Text>
+              meta.map((link,i) => (
+                <li key={i}>
+                  <NavLink to={link ? link.href : ""}>
+                    <Text variant="small">{link ? link.text:""}</Text>
                   </NavLink>
                 </li>
               ))}
