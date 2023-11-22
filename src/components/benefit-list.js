@@ -4,6 +4,7 @@ import {
   Container,
   Section,
   FlexList,
+  Flex,
   Box,
   Icon,
   Heading,
@@ -32,10 +33,10 @@ export default function BenefitList(props) {
   return (
     <Section>
       <Container>
-        <Box center>
+        <Flex center>
           {props.heading && <Heading>{props.heading}</Heading>}
           {props.text && <Text variant="lead">{props.text}</Text>}
-        </Box>
+        </Flex>
         <Space size={3} />
         <FlexList gutter={3} variant="start" responsive wrap>
           {props.content.map((benefit) => (
