@@ -1,12 +1,12 @@
 import React from "react";
 
-// import ShapeDivider from "../../assets/svg/shapedivider.svg";
 import { useMediaQuery } from "react-responsive";
+import { graphql } from "gatsby"
 
 import { Swiper, SwiperSlide} from "swiper/react";
 import SwiperCore  from "swiper";
 import 'swiper/css';
-import { Navigation, Pagination } from 'swiper/modules';
+import {  Pagination } from 'swiper/modules';
 
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -16,27 +16,15 @@ import {
     Section,
     Heading,
     Kicker,
-    Flex,
     Box,
     FlexList,
     Blockquote,
     Text,
+    Flex
 } from "./ui"
 
 SwiperCore.use([Pagination]);
 
-function Testimonial(props) {
-    return (
-        <SwiperSlide>
-            <div>
-                <div>
-                    {props.quote}
-                </div>
-                <div>{props.source}</div>        
-                    </div>
-        </SwiperSlide>
-    );
-};
 
 
 function TestimonialListAlt(props) {
