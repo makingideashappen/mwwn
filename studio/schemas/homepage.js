@@ -20,7 +20,6 @@ export default {
             { type: "homepageCta" },
             { type: "homepageLogoList" },
             { type: "homepageTestimonialList" },
-            { type: "homepageBenefitList" },
             { type: "homepageStatList" },
             { type: "homepageProductList" },
           ],

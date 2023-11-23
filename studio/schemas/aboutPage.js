@@ -18,7 +18,6 @@ export default {
             { type: "aboutStatList" },
             { type: "homepageProductList" },
             { type: "aboutLeadership" },
-            { type: "homepageBenefitList" },
             { type: "aboutLogoList" },
             { type: "homepageCta" },
           ],

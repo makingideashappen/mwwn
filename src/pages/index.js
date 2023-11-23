@@ -5,6 +5,7 @@ import * as sections from "../components/sections"
 import Fallback from "../components/fallback"
 import SEOHead from "../components/head"
 
+
 export default function Homepage(props) {
   const { homepage } = props.data
 
@@ -40,7 +41,6 @@ export const query = graphql`
         ...HomepageCtaContent
         ...HomepageLogoListContent
         ...HomepageTestimonialListContent
-        ...HomepageBenefitListContent
         ...HomepageStatListContent
         ...HomepageProductListContent
       }

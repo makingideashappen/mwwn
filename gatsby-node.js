@@ -163,21 +163,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [HomepageTestimonial]
     }
 
-    interface HomepageBenefit implements Node {
-      id: ID!
-      heading: String
-      text: String
-      image: HomepageImage
-    }
-
-    interface HomepageBenefitList implements Node & HomepageBlock {
-      id: ID!
-      blocktype: String
-      heading: String
-      text: String
-      content: [HomepageBenefit]
-    }
-
+   
     interface HomepageStat implements Node {
       id: ID!
       value: String
@@ -413,20 +399,6 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [HomepageTestimonial]
     }
 
-    type SanityHomepageBenefit implements Node & HomepageBenefit {
-      id: ID!
-      heading: String
-      text: String
-      image: HomepageImage @link(by: "id", from: "image.asset._ref")
-    }
-
-    type SanityHomepageBenefitList implements Node & HomepageBenefitList & HomepageBlock {
-      id: ID!
-      blocktype: String @blocktype
-      heading: String
-      text: String
-      content: [HomepageBenefit]
-    }
 
     type SanityHomepageStat implements Node & HomepageStat {
       id: ID!
