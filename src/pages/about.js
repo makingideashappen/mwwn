@@ -8,9 +8,13 @@ import SEOHead from "../components/head"
 export default function About(props) {
   const { aboutPage } = props.data
 
+  console .log(aboutPage)
+
+
+
   return (
     <Layout>
-      {aboutPage.blocks.map((block) => {
+      {aboutPage.blocks && aboutPage.blocks.map((block) => {
         const { id, blocktype, ...componentProps } = block
         const Component = sections[blocktype] || Fallback
         return <Component key={id} {...componentProps} />
@@ -37,7 +41,6 @@ export const query = graphql`
         blocktype
         ...AboutHeroContent
         ...AboutStatListContent
-        ...HomepageProductListContent
         ...AboutLeadershipContent
         ...AboutLogoListContent
         ...HomepageCtaContent

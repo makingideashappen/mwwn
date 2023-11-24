@@ -9,9 +9,10 @@ import SEOHead from "../components/head"
 export default function Homepage(props) {
   const { homepage } = props.data
 
+
   return (
     <Layout>
-      {homepage.blocks.map((block) => {
+      { homepage && homepage.blocks.map((block) => {
         const { id, blocktype, ...componentProps } = block
         const Component = sections[blocktype] || Fallback
         return <Component key={id} {...componentProps} />
