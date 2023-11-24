@@ -194,12 +194,12 @@ export const box = styleVariants({
 })
 
 export const section = style({
-  paddingTop: theme.space[4],
-  paddingBottom: theme.space[4],
+  paddingTop: theme.space[2],
+  paddingBottom: theme.space[2],
   "@media": {
     [media.small]: {
-      paddingTop: theme.space[5],
-      paddingBottom: theme.space[5],
+      paddingTop: theme.space[3],
+      paddingBottom: theme.space[3],
     },
   },
 })
@@ -628,3 +628,4 @@ export const visuallyHidden = style({
 export const debug = style({
   outline: "1px solid tomato",
 })
+
