@@ -297,7 +297,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       logos: [HomepageLogo]
     }
 
-    interface contactPage implements Node {
+    interface ContactPage implements Node {
       id: ID!
       title: String
       description: String
@@ -566,7 +566,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [ContactDetail]
     }
 
-    type SanityContactPage implements Node & Homepage {
+    type SanityContactPage implements Node & ContactPage {
       id: ID!
       title: String
       description: String
