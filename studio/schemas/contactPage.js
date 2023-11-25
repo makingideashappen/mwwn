@@ -1,6 +1,6 @@
 export default {
   name: "contactPage",
-  title: "Contact page",
+  title: "Contact Page",
   type: "document",
   fields: [
     { title: "Title", name: "title", type: "string" },
@@ -15,6 +15,7 @@ export default {
           type: "reference",
           to: [
             { type: "contactList" },
+            { type: "homepageTestimonialList" }
           ],
         },
       ],
