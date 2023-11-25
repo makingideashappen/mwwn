@@ -297,6 +297,28 @@ exports.createSchemaCustomization = async ({ actions }) => {
       logos: [HomepageLogo]
     }
 
+    interface contactPage implements Node {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage
+      content: [HomepageBlock]
+    }
+
+    interface ContactDetail implements Node {
+      id: ID!
+      heading: String
+      text: String
+    }
+
+    interface ContactList implements Node & ContactDetail {
+      id: ID!
+      kicker: String
+      heading: String
+      text: String
+      content:[ContactDetail]
+    }
+
     interface Page implements Node {
       id: ID!
       slug: String!
@@ -528,6 +550,28 @@ exports.createSchemaCustomization = async ({ actions }) => {
       heading: String
       links: [HomepageLink]
       logos: [HomepageLogo]
+    }
+
+    type SanityContactDetail implements Node & ContactDetail {
+      id: ID!
+      heading: String
+      text: String
+    } 
+
+    type SanityContactList implements Node & ContactList & ContactDetail {
+      id: ID!
+      kicker: String
+      heading: String
+      text: String
+      content: [ContactDetail]
+    }
+
+    type SanityContactPage implements Node & Homepage {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      content: [HomepageBlock] @link
     }
 
     type SanityPage implements Node & Page {
