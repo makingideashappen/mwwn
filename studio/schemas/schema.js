@@ -37,8 +37,13 @@ import aboutLeadership from "./aboutLeadership"
 import aboutLogoList from "./aboutLogoList"
 
 import contactPage from "./contactPage"
-import contactList from "./contactList"
+import contactDetailList from "./contactDetailList"
 import contactDetail from "./contactDetail"
+
+import blogPage from "./blogPage"
+import blogPost from "./blogPost"
+import blogPostList from "./blogPostList"
+
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -80,7 +85,11 @@ export default createSchema({
     aboutLogoList,
     //contactPage
     contactPage,
+    contactDetailList,
     contactDetail,
-    contactList
+    //blogPage
+    blogPage,
+    blogPost,
+    blogPostList,
   ]),
 })

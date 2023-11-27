@@ -1,10 +1,10 @@
 export default {
-    name: "contactList",
-    title: "Contact List",
+    name: "blogPostList",
+    title: "Blog Post List",
     type: "document",
     fields: [
-      { title: "Kicker", name: "kicker", type: "string" },
       { title: "Heading", name: "heading", type: "string" },
+      { title: "Kicker", name: "kicker", type: "string" },
       { title: "Text", name: "text", type: "string" },
       {
         title: "Content",
@@ -13,7 +13,7 @@ export default {
         of: [
           {
             type: "reference",
-            to: [{ type: "contactDetail" }],
+            to: [{ type: "blogPost" }],
           },
         ],
       },
