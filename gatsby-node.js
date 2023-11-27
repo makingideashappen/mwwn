@@ -331,10 +331,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
     interface BlogPost implements Node & HomepageBlock {
       id: ID!
       blocktype: String @blocktype
+      slug: String!
+      publishedAt: String
       heading: String
       kicker: String
       image: HomepageImage
       text: String
+      html: String!
     }
 
     interface BlogPostList implements Node & HomepageBlock {
@@ -622,10 +625,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
     type SanityBlogPost implements Node & BlogPost & HomepageBlock {
       id: ID!
       blocktype: String @blocktype
+      slug: String! @proxy(from: "slug.current")
+      publishedAt: String
       heading: String
       kicker: String
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
       text: String
+      html: String! @sanityBlockContent(fieldName: "content")
     }
 
     type SanityPage implements Node & Page {
