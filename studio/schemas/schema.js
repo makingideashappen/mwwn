@@ -44,7 +44,6 @@ import blogPage from "./blogPage"
 import blogPost from "./blogPost"
 import blogPostList from "./blogPostList"
 
-
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
