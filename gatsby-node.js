@@ -317,7 +317,33 @@ exports.createSchemaCustomization = async ({ actions }) => {
       heading: String
       kicker: String
       text: String
-      content:[ContactDetail]
+      content: [ContactDetail]
+    }
+
+    interface BlogPage implements Node {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage
+      content: [HomepageBlock]
+    }
+
+    interface BlogPost implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      image: HomepageImage
+      text: String
+    }
+
+    interface BlogPostList implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [BlogPost]
     }
 
     interface Page implements Node {
@@ -574,6 +600,32 @@ exports.createSchemaCustomization = async ({ actions }) => {
       description: String
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
       content: [HomepageBlock] @link
+    }
+
+    type SanityBlogPage implements & Node & BlogPage {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      content: [HomepageBlock] @link
+    }
+    
+    type SanityBlogPostList implements Node & BlogPostList & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [BlogPost] 
+    }
+
+    type SanityBlogPost implements Node & BlogPost & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      text: String
     }
 
     type SanityPage implements Node & Page {
