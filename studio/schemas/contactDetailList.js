@@ -3,8 +3,8 @@ export default {
     title: "Contact Detail List",
     type: "document",
     fields: [
-      { title: "Kicker", name: "kicker", type: "string" },
       { title: "Heading", name: "heading", type: "string" },
+      { title: "Kicker", name: "kicker", type: "string" },
       { title: "Text", name: "text", type: "string" },
       {
         title: "Content",

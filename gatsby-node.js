@@ -297,7 +297,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       logos: [HomepageLogo]
     }
 
-    interface ContactPage implements Node {
+    interface ContactPage implements Node  {
       id: ID!
       title: String
       description: String
@@ -311,10 +311,11 @@ exports.createSchemaCustomization = async ({ actions }) => {
       text: String
     }
 
-    interface ContactList implements Node & ContactDetail {
+    interface ContactDetailList implements Node & ContactDetail & HomepageBlock {
       id: ID!
-      kicker: String
+      blocktype: String @blocktype
       heading: String
+      kicker: String
       text: String
       content:[ContactDetail]
     }
@@ -552,16 +553,17 @@ exports.createSchemaCustomization = async ({ actions }) => {
       logos: [HomepageLogo]
     }
 
-    type SanityContactDetail implements Node & ContactDetail {
+    type SanityContactDetail implements Node & ContactDetail{
       id: ID!
       heading: String
       text: String
     } 
 
-    type SanityContactList implements Node & ContactList & ContactDetail {
+    type SanityContactDetailList implements Node & ContactDetail & ContactDetailList & HomepageBlock {
       id: ID!
-      kicker: String
+      blocktype: String @blocktype
       heading: String
+      kicker: String
       text: String
       content: [ContactDetail]
     }
