@@ -55,8 +55,9 @@ function PostCardSmall({ slug, image, title, category, ...props }) {
 }
 
 export default function BlogIndex({ posts }) {
-  const featuredPosts = posts.filter((p) => p.category === "Featured")
-  const regularPosts = posts.filter((p) => p.category !== "Featured")
+  console.log(posts)
+  // const featuredPosts = posts.filter((p) => p.category === "Featured")
+  // const regularPosts = posts.filter((p) => p.category !== "Featured")
 
   return (
     <Layout>
@@ -64,21 +65,21 @@ export default function BlogIndex({ posts }) {
         <Box paddingY={4}>
           <Heading as="h1">Blog</Heading>
           <FlexList variant="start" gap={0} gutter={3} responsive>
-            {featuredPosts.map((post) => (
+            {/* {featuredPosts.map((post) => (
               <Box as="li" key={post.id} padding={3} width="half">
-                <PostCard {...post} />
+                <f {...post} />
               </Box>
-            ))}
+            ))} */}
           </FlexList>
         </Box>
         <Box paddingY={4}>
           <Subhead>Product Updates</Subhead>
           <FlexList responsive wrap gap={0} gutter={3} variant="start">
-            {regularPosts.map((post) => (
+            {/* {regularPosts.map((post) => (
               <Box as="li" key={post.id} padding={3} width="third">
                 <PostCardSmall {...post} />
               </Box>
-            ))}
+            ))} */}
           </FlexList>
         </Box>
       </Container>
