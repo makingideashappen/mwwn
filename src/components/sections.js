@@ -12,4 +12,4 @@ export { default as AboutLeadership } from "./about-leadership"
 export { default as AboutLogoList } from "./about-logo-list"
 
 
-export { default as ContactList } from "./contact-list"
+export { default as ContactDetailList } from "./contact-detail-list"
