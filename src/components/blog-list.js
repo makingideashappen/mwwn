@@ -17,29 +17,34 @@ import SEOHead from "../components/head"
 import { graphql } from "gatsby"
 
 // function PostCard({ slug, image, title, excerpt, author, category, ...props }) {
-// function PostCard({ slug, image, title, excerpt, author, category, ...props }) {
+function PostCard({ slug, image, title, text, publishedAt, html ,  ...props }) {
 
-//   return (
-//     <BlockLink {...props} to={`/blog/${slug}`}>
-//       {image && (
-//         <>
-//           <GatsbyImage alt={image.alt} image={image.gatsbyImageData} />
-//           <Space size={3} />
-//         </>
-//       )}
-//       <Subhead>
-//         <Kicker>{category}</Kicker>
-//         {title}
-//       </Subhead>
-//       <Text as="p">{excerpt}</Text>
-//       {author?.name && (
-//         <Text variant="bold">
-//           <div>By {author.name}</div>
-//         </Text>
-//       )}
-//     </BlockLink>
-//   )
-// }
+  return (
+    <BlockLink {...props} to={`/blog/${slug}`}>
+      {image && (
+        <>
+          <GatsbyImage alt={image.alt} image={image.gatsbyImageData} />
+          <Space size={3} />
+        </>
+      )}
+      <Subhead>
+        <Kicker>{text}</Kicker>
+        {title}
+      </Subhead>
+      <Text as="p">{publishedAt}</Text>
+      {text && (
+        <Text variant="bold">
+          <div>By {slug}</div>
+        </Text>
+      )}
+        <div
+            dangerouslySetInnerHTML={{
+              __html: html,
+            }}
+          />
+    </BlockLink>
+  )
+}
 
 // function PostCardSmall({ slug, image, title, category, ...props }) {
 //   return (
@@ -60,7 +65,7 @@ import { graphql } from "gatsby"
 
 export default function BlogIndex(props) {
   const { heading,kicker,text,image,content: posts} = props
-  console.log(props, "33xdsxds")
+  console.log(posts, "33xdsxds")
   // const featuredPosts = posts.filter((p) => p.category === "Featured")
   // const regularPosts = posts.filter((p) => p.category !== "Featured")
 
@@ -68,10 +73,12 @@ export default function BlogIndex(props) {
     <Container>
       <Box paddingY={4}>
           <SuperHeading as="h1">{heading}</SuperHeading>
+          <Subhead>{kicker}</Subhead>
+          <Text>{text}</Text>
           <FlexList variant="start" gap={0} gutter={3} responsive>
             {posts && posts.map((post) => (
               <Box as="li" key={post.id} padding={3} width="half">
-                {post.id}
+                <PostCard  {...post} />
               </Box>
             ))}
           </FlexList>
@@ -101,6 +108,8 @@ export const query = graphql`
     text
     content {
       id
+      slug 
+      publishedAt
       heading
       kicker
       image {
@@ -109,6 +118,7 @@ export const query = graphql`
         alt
       }
       text
+      html
     }
   }
 `
