@@ -44,6 +44,10 @@ import blogPage from "./blogPage"
 import blogPost from "./blogPost"
 import blogPostList from "./blogPostList"
 
+import technicalInfoPage from "./technicalInfoPage"
+import technicalInfoList from "./technicalInfoList"
+import technicalInfo from "./technicalInfo"
+
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
@@ -90,5 +94,10 @@ export default createSchema({
     blogPage,
     blogPost,
     blogPostList,
+
+    technicalInfoPage,
+    technicalInfoList,
+    technicalInfo,
+    
   ]),
 })
