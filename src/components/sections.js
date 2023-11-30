@@ -15,3 +15,5 @@ export { default as AboutLogoList } from "./about-logo-list"
 export { default as ContactDetailList } from "./contact-detail-list"
 
 export { default as BlogPostList } from "./blog-list"
+
+export { default as TechnicalInfoList } from "./technical-info-list"

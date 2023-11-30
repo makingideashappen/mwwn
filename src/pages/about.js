@@ -11,7 +11,6 @@ export default function About(props) {
   console .log(aboutPage)
 
 
-
   return (
     <Layout>
       {aboutPage.blocks && aboutPage.blocks.map((block) => {

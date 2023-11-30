@@ -1,4 +1,5 @@
 const sanityBlockContentToHTML = require("@sanity/block-content-to-html")
+const path  = require('path')
 
 exports.createSchemaCustomization = async ({ actions }) => {
   actions.createFieldExtension({
@@ -349,6 +350,40 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [BlogPost]
     }
 
+    interface TechnicalInfoPage implements Node {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage
+      content: [HomepageBlock]
+    }
+
+    interface TechnicalInfoList implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [TechnicalInfo]
+    }
+
+    interface TechnicalInfo implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      slug: String!
+      publishedAt: String
+      category: String
+      heading: String
+      kicker: String
+      image: HomepageImage
+      html: String!
+      files: TechnicalInfoFile
+    }
+
+    interface TechnicalInfoFile implements Node {
+      id: ID!
+    }
+
     interface Page implements Node {
       id: ID!
       slug: String!
@@ -634,6 +669,40 @@ exports.createSchemaCustomization = async ({ actions }) => {
       html: String! @sanityBlockContent(fieldName: "content")
     }
 
+    type SanityTechnicalInfoPage implements Node & TechnicalInfoPage {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      content: [HomepageBlock]
+    }
+
+    type SanityTechnicalInfoList implements Node & TechnicalInfoList & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [TechnicalInfo]
+    }
+
+    type SanityTechnicalInfo implements Node & HomepageBlock & TechnicalInfo & TechnicalInfoFile {
+      id: ID!
+      blocktype: String @blocktype
+      slug: String! @proxy(from: "slug.current")
+      publishedAt: String
+      category: String
+      heading: String
+      kicker: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      html: String! @sanityBlockContent(fieldName: "content")
+      files: TechnicalInfoFile
+    }
+
+    type SanityTechnicalInfoFile implements Node {
+      id: ID!
+    }
+
     type SanityPage implements Node & Page {
       id: ID!
       slug: String! @proxy(from: "slug.current")
@@ -645,8 +714,11 @@ exports.createSchemaCustomization = async ({ actions }) => {
   `)
 }
 
-exports.createPages = ({ actions }) => {
-  const { createSlice } = actions
+exports.createPages = async ({ graphql, actions  }) => {
+  const { createSlice ,createPage} = actions
+  const blogPost = path.resolve(`./src/templates/blog-post.js`);
+
+  
   createSlice({
     id: "header",
     component: require.resolve("./src/components/header.js"),
@@ -655,5 +727,50 @@ exports.createPages = ({ actions }) => {
     id: "footer",
     component: require.resolve("./src/components/footer.js"),
   })
-}
-      
+  
+  const result = await graphql(`
+    query AllPosts {
+      allSanityBlogPost(sort: { publishedAt: DESC }, limit: 100) {
+        nodes {
+          slug 
+        }
+      }
+    }
+  `)
+
+  if (result.errors) {
+    throw result.errors;
+  }
+
+  const posts = result.data.allSanityBlogPost.nodes;
+
+  posts && posts
+    .forEach((post, index) => {
+      // const previous =
+      //   index === posts.length - 1 ? null : posts[index + 1].node;
+      // const next = index === 0 ? null : posts[index - 1].node;
+
+      createPage({
+        path: false
+          ? `/products${post.slug}`
+          : `/blog/${post.slug}`,
+        component: false
+          ? blogPost
+          : blogPost,
+        context: {
+          slug: `/${post.slug}`,
+          // previous,
+          // next,
+        },
+      });
+    });
+
+ 
+
+
+  //st productPost = path.resolve(`./src/templates/product-page.js`);
+
+
+  // Create blog posts pages.
+  
+};

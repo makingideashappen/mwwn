@@ -86,6 +86,7 @@ export default function BlogIndex({ posts }) {
     </Layout>
   )
 }
+
 export const Head = () => {
   return <SEOHead title="Blog" />
 }
