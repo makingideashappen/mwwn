@@ -716,8 +716,8 @@ exports.createSchemaCustomization = async ({ actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createSlice, createPage } = actions
-  const blogPost = path.resolve(`./src/templates/blog-post.js`);
-  const technicalInfo = path.resolve(`./src/templates/technical-info.js`);
+  const blogPostPage = path.resolve(`./src/templates/blog-post.js`);
+  const technicalInfoPage = path.resolve(`./src/templates/technical-info.js`);
 
 
   createSlice({
@@ -734,53 +734,61 @@ exports.createPages = async ({ graphql, actions }) => {
       allSanityBlogPost(sort: { publishedAt: DESC }, limit: 100) {
         nodes {
           id
-      slug 
-      publishedAt
-      heading
-      kicker
-      image {
-        id
-        gatsbyImageData
-        alt
-      }
-      text
-      html
-      files {
-        id
-      }
+          slug 
         }
       }
     }
   `)
+
+  const resultTechInfo = await graphql(`
+  query AllPosts {
+    allSanityTechnicalInfo(sort: { publishedAt: DESC }, limit: 100) {
+      nodes {
+        id
+        slug 
+      }
+    }
+  }
+`)
 
   if (result.errors) {
     throw result.errors;
   }
 
   const posts = result.data.allSanityBlogPost.nodes;
+  const technicalInfo = resultTechInfo.data.allSanityTechnicalInfo.nodes;
 
   posts && posts
     .forEach((post, index) => {
-      const previous =
-        index === posts.length - 1 ? null : posts[index + 1].node;
-      const next = index === 0 ? null : posts[index - 1].node;
+      // const previous =
+      //   index === posts.length - 1 ? null : posts[index + 1].node;
+      // const next = index === 0 ? null : posts[index - 1].node;
 
       createPage({
-        path: false
-          ? `/technical-info/${post.slug}`
-          : `/blog/${post.slug}`,
-        component: false
-          ? technicalInfo
-          : blogPost,
+        path:  `/blog/${post.slug}`,
+        component: blogPostPage,
         context: {
-          slug: `/${post.slug}`,
+          slug: `${post.slug}`,
           post: post,
-          previous,
-          next,
+          // previous,
+          // next,
         },
       });
     });
 
+
+    technicalInfo && technicalInfo
+    .forEach((post, index) => {
+
+      createPage({
+        path: `/technical-info/${post.slug}`,
+        component: technicalInfoPage,
+        context: {
+          slug: `${post.slug}`,
+          technicalInfo: technicalInfo,
+        },
+      });
+    });
 
 
 

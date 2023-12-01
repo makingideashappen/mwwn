@@ -11,11 +11,12 @@ import {
 } from "../components/ui"
 import * as styles from "./blog-post.css"
 import SEOHead from "../components/head"
+import { graphql } from "gatsby"
 
 export default function BlogPost(props) {
 
-const  {post } = props.pageContext
-console.log(post)
+const   post  = props.data.blogPost
+
 const date = `${post.publishedAt.slice(8,10)}/${post.publishedAt.slice(5,7)}/${post.publishedAt.slice(0,4)}` 
 
   return (
@@ -59,3 +60,27 @@ export const Head = (props) => {
   return <SEOHead {...props} description={props.excerpt} />
 }
 
+export const query = graphql`
+  query SinglePost($slug: String!) {
+    blogPost(slug: { eq: $slug } ) {
+      id
+      slug 
+      publishedAt
+      heading
+      kicker
+      image {
+        id
+        gatsbyImageData
+        alt
+      }
+      text
+      html
+    }
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
+  }
+`
