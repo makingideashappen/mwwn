@@ -22,6 +22,7 @@ export default {
             { type: "homepageTestimonialList" },
             { type: "homepageStatList" },
             { type: "homepageProductList" },
+            { type: "contactDetailList" },
           ],
         },
       ],
