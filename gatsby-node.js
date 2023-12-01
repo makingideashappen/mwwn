@@ -107,6 +107,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
       links: [HomepageLink]
     }
 
+    interface HomepageHeroList implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      text: String
+      content: [HomepageHero]
+    }
+
     interface HomepageFeature implements Node & HomepageBlock {
       id: ID!
       blocktype: String
@@ -428,6 +435,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
       text: String
       links: [HomepageLink] @link
     }
+
+    type SanityHomepageHeroList implements Node & HomepageBlock & HomepageHeroList {
+      id: ID!
+      blocktype: String @blocktype
+      text: String
+      content: [HomepageHero]
+    } 
 
     type SanityHomepageFeature implements Node & HomepageFeature & HomepageBlock {
       id: ID!
@@ -789,12 +803,5 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       });
     });
-
-
-
-  //st productPost = path.resolve(`./src/templates/product-page.js`);
-
-
-  // Create blog posts pages.
 
 };

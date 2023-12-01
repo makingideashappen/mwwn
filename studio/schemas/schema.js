@@ -7,6 +7,7 @@ import schemaTypes from "all:part:@sanity/base/schema-type"
 import homepage from "./homepage"
 import homepageLink from "./homepageLink"
 import homepageHero from "./homepageHero"
+import homepageHeroList from "./homepageHeroList"
 import homepageFeature from "./homepageFeature"
 import homepageFeatureList from "./homepageFeatureList"
 import homepageCta from "./homepageCta"
@@ -58,6 +59,7 @@ export default createSchema({
     homepage,
     homepageLink,
     homepageHero,
+    homepageHeroList,
     homepageFeature,
     homepageFeatureList,
     homepageCta,

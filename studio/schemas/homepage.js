@@ -15,6 +15,7 @@ export default {
           type: "reference",
           to: [
             { type: "homepageHero" },
+            { type: "homepageHeroList" },
             { type: "homepageFeature" },
             { type: "homepageFeatureList" },
             { type: "homepageCta" },
