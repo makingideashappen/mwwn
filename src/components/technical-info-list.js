@@ -11,26 +11,31 @@ import {
   Subhead,
   Kicker,
   Text,
-  SuperHeading
+  SuperHeading,
+  Flex
 } from "../components/ui"
 import SEOHead from "../components/head"
 import { graphql } from "gatsby"
 
 
-function PostCardSmall({ slug, image, title, text, publishedAt, html ,  ...props }) {
+function PostCardSmall({ slug, image, heading,kicker, text, publishedAt, html ,  ...props }) {
   //category
   return (
-    <BlockLink {...props} to={`/technicalInfo/${slug}`}>
+    <BlockLink {...props} to={`/technical-info/${slug}`}>
+      <Box  background="muted" radius="large">
+      <Flex width="full"   >
       {image && (
-        <>
-          <GatsbyImage alt={image.alt} image={image.gatsbyImageData} />
-          <Space size={3} />
-        </>
+        <Box>
+          <GatsbyImage style={{maxHeight:330}} alt={image.alt} image={image.gatsbyImageData} size="small" />
+        </Box>
       )}
+      <Box padding={3}>
       <Subhead>
-        <Kicker>{text}</Kicker>
-        {title}
+        <Kicker>{kicker}</Kicker>
+        {heading}
       </Subhead>
+      </Box>
+      </Flex></Box>
     </BlockLink>
   )
 }
@@ -46,7 +51,7 @@ export default function TechnicalInfoList(props) {
           <Text>{text}</Text>
           <FlexList variant="start" gap={0} gutter={3} responsive>
             {technicalInfo && technicalInfo.map((post) => (
-              <Box as="li" key={post.id} padding={3} width="half">
+              <Box as="li" key={post.id} padding={3} width="full">
                 <PostCardSmall  {...post} />
               </Box>
             ))}

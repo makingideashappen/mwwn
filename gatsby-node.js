@@ -1,5 +1,5 @@
 const sanityBlockContentToHTML = require("@sanity/block-content-to-html")
-const path  = require('path')
+const path = require('path')
 
 exports.createSchemaCustomization = async ({ actions }) => {
   actions.createFieldExtension({
@@ -714,11 +714,12 @@ exports.createSchemaCustomization = async ({ actions }) => {
   `)
 }
 
-exports.createPages = async ({ graphql, actions  }) => {
-  const { createSlice ,createPage} = actions
+exports.createPages = async ({ graphql, actions }) => {
+  const { createSlice, createPage } = actions
   const blogPost = path.resolve(`./src/templates/blog-post.js`);
+  const technicalInfo = path.resolve(`./src/templates/technical-info.js`);
 
-  
+
   createSlice({
     id: "header",
     component: require.resolve("./src/components/header.js"),
@@ -727,12 +728,26 @@ exports.createPages = async ({ graphql, actions  }) => {
     id: "footer",
     component: require.resolve("./src/components/footer.js"),
   })
-  
+
   const result = await graphql(`
     query AllPosts {
       allSanityBlogPost(sort: { publishedAt: DESC }, limit: 100) {
         nodes {
-          slug 
+          id
+      slug 
+      publishedAt
+      heading
+      kicker
+      image {
+        id
+        gatsbyImageData
+        alt
+      }
+      text
+      html
+      files {
+        id
+      }
         }
       }
     }
@@ -746,31 +761,32 @@ exports.createPages = async ({ graphql, actions  }) => {
 
   posts && posts
     .forEach((post, index) => {
-      // const previous =
-      //   index === posts.length - 1 ? null : posts[index + 1].node;
-      // const next = index === 0 ? null : posts[index - 1].node;
+      const previous =
+        index === posts.length - 1 ? null : posts[index + 1].node;
+      const next = index === 0 ? null : posts[index - 1].node;
 
       createPage({
         path: false
-          ? `/products${post.slug}`
+          ? `/technical-info/${post.slug}`
           : `/blog/${post.slug}`,
         component: false
-          ? blogPost
+          ? technicalInfo
           : blogPost,
         context: {
           slug: `/${post.slug}`,
-          // previous,
-          // next,
+          post: post,
+          previous,
+          next,
         },
       });
     });
 
- 
+
 
 
   //st productPost = path.resolve(`./src/templates/product-page.js`);
 
 
   // Create blog posts pages.
-  
+
 };

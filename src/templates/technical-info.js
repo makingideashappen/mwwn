@@ -58,4 +58,3 @@ const date = `${post.publishedAt.slice(8,10)}/${post.publishedAt.slice(5,7)}/${p
 export const Head = (props) => {
   return <SEOHead {...props} description={props.excerpt} />
 }
-
