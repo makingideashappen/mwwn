@@ -15,8 +15,8 @@ import { graphql } from "gatsby"
 
 export default function BlogPost(props) {
 
-const  post  = props.data.technicalInfo
-const date = `${post.publishedAt.slice(8,10)}/${post.publishedAt.slice(5,7)}/${post.publishedAt.slice(0,4)}` 
+  const post = props.data.technicalInfo
+  const date = `${post.publishedAt.slice(8, 10)}/${post.publishedAt.slice(5, 7)}/${post.publishedAt.slice(0, 4)}`
 
   return (
     <Layout>
@@ -25,21 +25,21 @@ const date = `${post.publishedAt.slice(8,10)}/${post.publishedAt.slice(5,7)}/${p
           <Heading as="h1" center>
             {post.heading}
           </Heading>
-          <br/>
+          <br />
           <Space size={4} />
           <Space size={4} />
           <Text center>{date}</Text>
           <Space size={4} />
-        <Box center> {post.image && (
+          <Box center> {post.image && (
             <GatsbyImage
               alt={post.image.alt}
               image={post.image.gatsbyImageData}
             />
           )}
-          <Box center>
-          <Space size={5} />
-          </Box> 
-          <Kicker>{post.kicker}</Kicker>
+            <Box center>
+              <Space size={5} />
+            </Box>
+            <Kicker>{post.kicker}</Kicker>
           </Box>
           <div
             className={styles.blogPost}
@@ -49,7 +49,7 @@ const date = `${post.publishedAt.slice(8,10)}/${post.publishedAt.slice(5,7)}/${p
           />
         </Box>
         <Box center>
-        <Text>{post.text}</Text>
+          <Text>{post.text}</Text>
         </Box>
       </Container>
     </Layout>

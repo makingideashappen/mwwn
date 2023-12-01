@@ -6,28 +6,23 @@ import { graphql } from "gatsby"
 
 function ContactDetail(props) {
   return (
-    <Box center>
-      {/* {props.image && (
-        <Icon
-          alt={props.image.alt}
-          image={props.image.gatsbyImageData}
-          size="large"
-        />
-      )} */}
+
+    <Flex>
       <Subhead>{props.heading}</Subhead>
       <Text>{props.text}</Text>
-    </Box>
+    </Flex>
+
+
   )
 }
 
 export default function ContactDetailList(props) {
-  console.log(props,"111")
   return (
     <Section padding={4} background="muted">
       <Container>
         <Flex gap={4} variant="responsive">
           <Box width="half">
-            <FlexList>
+            <Box>
               <Box center paddingY={4}>
                 <Heading>
                   {props.kicker && <Kicker>{props.kicker}</Kicker>}
@@ -35,14 +30,14 @@ export default function ContactDetailList(props) {
                 </Heading>
                 {props.text && <Text>{props.text}</Text>}
               </Box>
-              <FlexList gap={3} variant="center">
+              <FlexList gap={3} variant="column">
                 { props.content.map((contactDetail) => (
                   <li key={contactDetail.id}>
                     <ContactDetail {...contactDetail} />
                   </li>
                 ))}
               </FlexList>
-            </FlexList>
+            </Box>
           </Box>
           <Box width="half">
             <ContactForm />
