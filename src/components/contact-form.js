@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import React from "react";
 import { Container,Flex, Box, Button, Text } from "./ui"
-
+import "./contact-form.css"
 
 export default function contactForm({ className }) {
     return (
@@ -44,30 +44,33 @@ export default function contactForm({ className }) {
             >
                 {() => (
                     <Form className={className} name="contact-demo" data-netlify={true}>
-                        <Box padding="6">
+                        <Box padding="4">
                             <Flex alignItems="left" gap={3}>
                                 <Text as="label" htmlFor="name">Your name</Text>
                             </Flex>
                             <Field name="name" />
+                    
                             <ErrorMessage name="name" />
-                            <br/>
-                            <br/>
+                        <br/>   <br/>
                             <Flex alignItems="left" gap={3}>
                                 <Text as="label" htmlFor="email">Your email</Text>
                             </Flex>
                             <Field name="email" />
                             <Flex variant="left" gap={3}>
                                 <ErrorMessage name="email" />
+                                <br/>  <br/>
                             </Flex>
-                            <br/>
-                            <br/>
+                        
                             <Flex alignItems="left" gap={3}>
                                 <Text as="label" htmlFor="message">Message</Text>
                             </Flex>
-                            
+                            <Field name="message" component="textarea" />
+
                             <Flex alignItems="left" gap={3}>
-                                <Field name="message" component="textarea" />
+                                <Flex variant="left" gap={3}>
                                 <ErrorMessage name="message" />
+                                <br/> 
+                                </Flex>
                             </Flex>
                             <br/>
                             <br/>

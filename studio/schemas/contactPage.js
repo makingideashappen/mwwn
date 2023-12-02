@@ -14,7 +14,7 @@ export default {
         {
           type: "reference",
           to: [
-            { type: "contactList" },
+            { type: "contactDetailList" },
           ],
         },
       ],

@@ -5,8 +5,11 @@ import * as sections from "../components/sections"
 import Fallback from "../components/fallback"
 import SEOHead from "../components/head"
 
-export default function About(props) {
+export default function Contact(props) {
   const { contactPage } = props.data
+
+console.log(contactPage)
+
 
   return (
     <Layout>
@@ -18,7 +21,6 @@ export default function About(props) {
     </Layout>
   )
 }
-
 export const Head = (props) => {
   const { contactPage } = props.data
   return <SEOHead {...contactPage} />
@@ -36,7 +38,7 @@ export const query = graphql`
       blocks: content {
         id
         blocktype
-        ...ContactListContent
+        ...ContactDetailListContent
       }
     }
   }

@@ -8,7 +8,7 @@ import SEOHead from "../components/head"
 
 export default function Homepage(props) {
   const { homepage } = props.data
-
+console.log(props,"hmpg")
 
   return (
     <Layout>
@@ -37,7 +37,7 @@ export const query = graphql`
       blocks: content {
         id
         blocktype
-        ...HomepageHeroContent
+        ...HomepageHeroListContent
         ...HomepageFeatureListContent
         ...HomepageCtaContent
         ...HomepageLogoListContent

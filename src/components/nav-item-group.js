@@ -84,11 +84,13 @@ export default function NavItemGroup({ name, navItems }) {
           className={
             styles.navLinkListWrapper[popupVisible ? "opened" : "closed"]
           }
+
         >
           <FlexList
             variant="columnStart"
             gap={2}
             className={styles.navLinkListWrapperInner}
+
           >
             {navItems.map((navItem) => (
               <li key={navItem.id}>

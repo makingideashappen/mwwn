@@ -7,6 +7,7 @@ import schemaTypes from "all:part:@sanity/base/schema-type"
 import homepage from "./homepage"
 import homepageLink from "./homepageLink"
 import homepageHero from "./homepageHero"
+import homepageHeroList from "./homepageHeroList"
 import homepageFeature from "./homepageFeature"
 import homepageFeatureList from "./homepageFeatureList"
 import homepageCta from "./homepageCta"
@@ -37,8 +38,16 @@ import aboutLeadership from "./aboutLeadership"
 import aboutLogoList from "./aboutLogoList"
 
 import contactPage from "./contactPage"
-import contactList from "./contactList"
+import contactDetailList from "./contactDetailList"
 import contactDetail from "./contactDetail"
+
+import blogPage from "./blogPage"
+import blogPost from "./blogPost"
+import blogPostList from "./blogPostList"
+
+import technicalInfoPage from "./technicalInfoPage"
+import technicalInfoList from "./technicalInfoList"
+import technicalInfo from "./technicalInfo"
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -50,6 +59,7 @@ export default createSchema({
     homepage,
     homepageLink,
     homepageHero,
+    homepageHeroList,
     homepageFeature,
     homepageFeatureList,
     homepageCta,
@@ -80,7 +90,16 @@ export default createSchema({
     aboutLogoList,
     //contactPage
     contactPage,
+    contactDetailList,
     contactDetail,
-    contactList
+    //blogPage
+    blogPage,
+    blogPost,
+    blogPostList,
+
+    technicalInfoPage,
+    technicalInfoList,
+    technicalInfo,
+    
   ]),
 })

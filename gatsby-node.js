@@ -1,4 +1,5 @@
 const sanityBlockContentToHTML = require("@sanity/block-content-to-html")
+const path = require('path')
 
 exports.createSchemaCustomization = async ({ actions }) => {
   actions.createFieldExtension({
@@ -104,6 +105,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
       image: HomepageImage
       text: String
       links: [HomepageLink]
+    }
+
+    interface HomepageHeroList implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      text: String
+      content: [HomepageHero]
     }
 
     interface HomepageFeature implements Node & HomepageBlock {
@@ -297,7 +305,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       logos: [HomepageLogo]
     }
 
-    interface ContactPage implements Node {
+    interface ContactPage implements Node  {
       id: ID!
       title: String
       description: String
@@ -311,12 +319,76 @@ exports.createSchemaCustomization = async ({ actions }) => {
       text: String
     }
 
-    interface ContactList implements Node & ContactDetail {
+    interface ContactDetailList implements Node & ContactDetail & HomepageBlock {
       id: ID!
-      kicker: String
+      blocktype: String @blocktype
       heading: String
+      kicker: String
       text: String
-      content:[ContactDetail]
+      content: [ContactDetail]
+    }
+
+    interface BlogPage implements Node {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage
+      content: [HomepageBlock]
+    }
+
+    interface BlogPost implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      slug: String!
+      publishedAt: String
+      heading: String
+      kicker: String
+      image: HomepageImage
+      text: String
+      html: String!
+    }
+
+    interface BlogPostList implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [BlogPost]
+    }
+
+    interface TechnicalInfoPage implements Node {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage
+      content: [HomepageBlock]
+    }
+
+    interface TechnicalInfoList implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [TechnicalInfo]
+    }
+
+    interface TechnicalInfo implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      slug: String!
+      publishedAt: String
+      category: String
+      heading: String
+      kicker: String
+      image: HomepageImage
+      html: String!
+      files: TechnicalInfoFile
+    }
+
+    interface TechnicalInfoFile implements Node {
+      id: ID!
     }
 
     interface Page implements Node {
@@ -363,6 +435,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
       text: String
       links: [HomepageLink] @link
     }
+
+    type SanityHomepageHeroList implements Node & HomepageBlock & HomepageHeroList {
+      id: ID!
+      blocktype: String @blocktype
+      text: String
+      content: [HomepageHero]
+    } 
 
     type SanityHomepageFeature implements Node & HomepageFeature & HomepageBlock {
       id: ID!
@@ -552,16 +631,17 @@ exports.createSchemaCustomization = async ({ actions }) => {
       logos: [HomepageLogo]
     }
 
-    type SanityContactDetail implements Node & ContactDetail {
+    type SanityContactDetail implements Node & ContactDetail{
       id: ID!
       heading: String
       text: String
     } 
 
-    type SanityContactList implements Node & ContactList & ContactDetail {
+    type SanityContactDetailList implements Node & ContactDetail & ContactDetailList & HomepageBlock {
       id: ID!
-      kicker: String
+      blocktype: String @blocktype
       heading: String
+      kicker: String
       text: String
       content: [ContactDetail]
     }
@@ -572,6 +652,69 @@ exports.createSchemaCustomization = async ({ actions }) => {
       description: String
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
       content: [HomepageBlock] @link
+    }
+
+    type SanityBlogPage implements & Node & BlogPage {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      content: [HomepageBlock] @link
+    }
+    
+    type SanityBlogPostList implements Node & BlogPostList & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [BlogPost] 
+    }
+
+    type SanityBlogPost implements Node & BlogPost & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      slug: String! @proxy(from: "slug.current")
+      publishedAt: String
+      heading: String
+      kicker: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      text: String
+      html: String! @sanityBlockContent(fieldName: "content")
+    }
+
+    type SanityTechnicalInfoPage implements Node & TechnicalInfoPage {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      content: [HomepageBlock]
+    }
+
+    type SanityTechnicalInfoList implements Node & TechnicalInfoList & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [TechnicalInfo]
+    }
+
+    type SanityTechnicalInfo implements Node & HomepageBlock & TechnicalInfo & TechnicalInfoFile {
+      id: ID!
+      blocktype: String @blocktype
+      slug: String! @proxy(from: "slug.current")
+      publishedAt: String
+      category: String
+      heading: String
+      kicker: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      html: String! @sanityBlockContent(fieldName: "content")
+      files: TechnicalInfoFile
+    }
+
+    type SanityTechnicalInfoFile implements Node {
+      id: ID!
     }
 
     type SanityPage implements Node & Page {
@@ -585,8 +728,12 @@ exports.createSchemaCustomization = async ({ actions }) => {
   `)
 }
 
-exports.createPages = ({ actions }) => {
-  const { createSlice } = actions
+exports.createPages = async ({ graphql, actions }) => {
+  const { createSlice, createPage } = actions
+  const blogPostPage = path.resolve(`./src/templates/blog-post.js`);
+  const technicalInfoPage = path.resolve(`./src/templates/technical-info.js`);
+
+
   createSlice({
     id: "header",
     component: require.resolve("./src/components/header.js"),
@@ -595,5 +742,66 @@ exports.createPages = ({ actions }) => {
     id: "footer",
     component: require.resolve("./src/components/footer.js"),
   })
-}
-      
+
+  const result = await graphql(`
+    query AllPosts {
+      allSanityBlogPost(sort: { publishedAt: DESC }, limit: 100) {
+        nodes {
+          id
+          slug 
+        }
+      }
+    }
+  `)
+
+  const resultTechInfo = await graphql(`
+  query AllPosts {
+    allSanityTechnicalInfo(sort: { publishedAt: DESC }, limit: 100) {
+      nodes {
+        id
+        slug 
+      }
+    }
+  }
+`)
+
+  if (result.errors) {
+    throw result.errors;
+  }
+
+  const posts = result.data.allSanityBlogPost.nodes;
+  const technicalInfo = resultTechInfo.data.allSanityTechnicalInfo.nodes;
+
+  posts && posts
+    .forEach((post, index) => {
+      // const previous =
+      //   index === posts.length - 1 ? null : posts[index + 1].node;
+      // const next = index === 0 ? null : posts[index - 1].node;
+
+      createPage({
+        path:  `/blog/${post.slug}`,
+        component: blogPostPage,
+        context: {
+          slug: `${post.slug}`,
+          post: post,
+          // previous,
+          // next,
+        },
+      });
+    });
+
+
+    technicalInfo && technicalInfo
+    .forEach((post, index) => {
+
+      createPage({
+        path: `/technical-info/${post.slug}`,
+        component: technicalInfoPage,
+        context: {
+          slug: `${post.slug}`,
+          technicalInfo: technicalInfo,
+        },
+      });
+    });
+
+};

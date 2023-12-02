@@ -1,0 +1,13 @@
+
+input,textarea {
+    width:100%;
+    min-height:38px;
+    border-radius:5px;
+    border: 2px solid #c1c1c1;
+}
+
+textarea {
+    min-height:240px;
+    width:100%;
+
+}

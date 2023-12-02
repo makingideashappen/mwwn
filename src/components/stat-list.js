@@ -18,7 +18,7 @@ import {
 function Stat(props) {
   return (
     <Box>
-      <Text variant="stat">{props.value}</Text>
+      <Text variant="statLabel">{props.value}</Text>
       <Text variant="statLabel">{props.label}</Text>
     </Box>
   )
@@ -49,10 +49,11 @@ export default function StatList(props) {
           </Box>
           <Box width="half">
             {props.image && (
-              <Nudge right={5} bottom={5}>
+              <Nudge right={5} bottom={3} top={3}>
                 <GatsbyImage
                   alt={props.image.alt}
                   image={getImage(props.image.gatsbyImageData)}
+                  sidth='100%'
                 />
               </Nudge>
             )}
