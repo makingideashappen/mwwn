@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "sanity start",
-    "build": "sanity build ../static/__sanity",
+    "build": "sanity build",
     "deploy": "sanity graphql deploy",
     "sanity-init": "sanity init",
     "sanity-import": "sanity dataset import ../scripts/content.tar.gz production",
