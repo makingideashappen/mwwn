@@ -28,7 +28,8 @@ export default function HeroList(props) {
   const isMobile = useMediaQuery({ query: "(max-width: 840px)" });
 console.log(props.content,"hero")
   return (
-    <Section>
+    //fix tooltip menu
+    <Section style={{position:"relative", zIndex:0}}>
       <div width="100%">
         <Swiper
           spaceBetween={10}

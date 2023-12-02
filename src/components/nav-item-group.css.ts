@@ -68,10 +68,12 @@ const navLinkListWrapperBase = style({
 export const navLinkListWrapper = styleVariants({
   opened: [
     navLinkListWrapperBase,
+ 
     {
       "@media": {
         [media.small]: {
           animation: "zoomInUp 0.15s ease-in-out",
+          
         },
       },
     },
