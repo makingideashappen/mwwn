@@ -5,7 +5,7 @@ import Feature from "./feature"
 
 export default function FeatureList(props) {
   return (
-    <Container width="fullbleed">
+    <Container width="full" style={{marginTop:"2rem"}}>
       <Box background="muted" radius="large">
         <Box center paddingY={5}>
           <Heading>

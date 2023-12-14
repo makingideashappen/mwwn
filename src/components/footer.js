@@ -20,6 +20,7 @@ import {
   VisuallyHidden,
 } from "./ui"
 import BrandLogo from "./brand-logo"
+import { useMediaQuery } from "react-responsive";
 
 const socialMedia = {
   TWITTER: {
@@ -69,6 +70,8 @@ const getSocialName = ({ service }) => {
 }
 
 export default function Footer() {
+  const isMobile = useMediaQuery({ query: "(max-width: 840px)" });
+
   const data = useStaticQuery(graphql`
     query {
       layout {
@@ -95,6 +98,7 @@ export default function Footer() {
     }
   `)
 
+  const mobileSocials = isMobile ?{}: {position:"fixed",background:"white",bottom:0,right:0,padding:"1.2rem",zIndex:10, borderRadius:"2rem 0rem 0rem 0rem" ,boxShadow: "0px 3px 18px rgba(0, 0, 0, 0.2)"}
   const { links, meta, socialLinks, copyright } = data.layout.footer
 
   return (
@@ -106,7 +110,7 @@ export default function Footer() {
             <BrandLogo />
           </NavLink>
           <Space />
-          <FlexList>
+          <FlexList style={mobileSocials}>
             {socialLinks &&
               socialLinks.map((link) => {
                 const url = getSocialURL(link)
@@ -124,7 +128,7 @@ export default function Footer() {
           </FlexList>
         </Flex>
         <Space size={5} />
-        <Flex variant="start" responsive>
+        <Flex variant="start" responsive >
           <FlexList variant="start" responsive>
             {links &&
               links.map((link) => (

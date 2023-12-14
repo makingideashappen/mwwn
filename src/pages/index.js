@@ -8,7 +8,6 @@ import SEOHead from "../components/head"
 
 export default function Homepage(props) {
   const { homepage } = props.data
-console.log(props,"hmpg")
 
   return (
     <Layout>
