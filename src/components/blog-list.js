@@ -1,6 +1,6 @@
-import * as React from "react"
-import { GatsbyImage } from "gatsby-plugin-image"
-import Layout from "../components/layout"
+import * as React from "react";
+import { GatsbyImage } from "gatsby-plugin-image";
+import Layout from "../components/layout";
 import {
   Container,
   FlexList,
@@ -11,70 +11,73 @@ import {
   Subhead,
   Kicker,
   Text,
-  SuperHeading
-} from "../components/ui"
-import SEOHead from "../components/head"
-import { graphql } from "gatsby"
+  SuperHeading,
+} from "../components/ui";
+import SEOHead from "../components/head";
+import { graphql } from "gatsby";
 
 // function PostCard({ slug, image, title, excerpt, author, category, ...props }) {
-function PostCard({ slug, image, heading, text, publishedAt, html ,  ...props }) {
-const date = `${publishedAt.slice(8,10)}/${publishedAt.slice(5,7)}/${publishedAt.slice(0,4)}` 
+function PostCard({ slug, image, heading, text, publishedAt, html, ...props }) {
+  const date = `${publishedAt.slice(8, 10)}/${publishedAt.slice(
+    5,
+    7
+  )}/${publishedAt.slice(0, 4)}`;
   return (
     <Box width="full" gap={5} radius="large">
-    <BlockLink {...props} to={`/blog/${slug}`}>
-    <Box background="muted">
-      {image && (
-        <Box>
-          <GatsbyImage alt={image.alt} image={image.gatsbyImageData} />
-          <Space size={3} />
+      <BlockLink {...props} to={`/blog/${slug}`}>
+        <Box background="muted">
+          {image && (
+            <Box>
+              <GatsbyImage alt={image.alt} image={image.gatsbyImageData} />
+              <Space size={3} />
+            </Box>
+          )}
+          <Box padding={3}>
+            <Subhead>
+              <Kicker>{heading}</Kicker>
+            </Subhead>
+            <Text as="p">{date}</Text>
+            {text && (
+              <Text variant="bold">
+                <div>{text}</div>
+              </Text>
+            )}
+          </Box>
         </Box>
-      )}
-      <Box  padding={3}>
-      <Subhead>
-        <Kicker>{heading}</Kicker>
-      </Subhead>
-      <Text as="p">{date}</Text>
-      {text && (
-        <Text variant="bold">
-          <div>{text}</div>
-        </Text>
-      )}
-      </Box>
-     </Box>
         {/* <div
             dangerouslySetInnerHTML={{
               __html: html,
             }}
           /> */}
-    </BlockLink>
+      </BlockLink>
     </Box>
-  )
+  );
 }
 
 export default function BlogIndex(props) {
-  const { heading,kicker,text,image,content: posts} = props
-  console.log(posts, "33xdsxds")
+  const { heading, kicker, text, image, content: posts } = props;
 
   return (
     <Container>
       <Box paddingY={4}>
-          <SuperHeading as="h1">{heading}</SuperHeading>
-          <Subhead>{kicker}</Subhead>
-          <Text>{text}</Text>
-          <FlexList variant="start" gap={3} gutter={3} responsive>
-            {posts && posts.map((post) => (
+        <SuperHeading as="h1">{heading}</SuperHeading>
+        <Subhead>{kicker}</Subhead>
+        <Text>{text}</Text>
+        <FlexList variant="start" gap={3} gutter={3} responsive>
+          {posts &&
+            posts.map((post) => (
               <Box as="li" key={post.id} padding={3} width="half">
-                <PostCard  {...post} />
+                <PostCard {...post} />
               </Box>
             ))}
-          </FlexList>
-        </Box>
+        </FlexList>
+      </Box>
     </Container>
-  )
+  );
 }
 export const Head = () => {
-  return <SEOHead title="Blog" />
-}
+  return <SEOHead title="Blog" />;
+};
 
 export const query = graphql`
   fragment BlogPostListContent on BlogPostList {
@@ -84,7 +87,7 @@ export const query = graphql`
     text
     content {
       id
-      slug 
+      slug
       publishedAt
       heading
       kicker
@@ -97,4 +100,4 @@ export const query = graphql`
       html
     }
   }
-`
+`;

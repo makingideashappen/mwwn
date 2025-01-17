@@ -1,30 +1,28 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import * as sections from "../components/sections"
-import Fallback from "../components/fallback"
-import SEOHead from "../components/head"
+import * as React from "react";
+import { graphql } from "gatsby";
+import Layout from "../components/layout";
+import * as sections from "../components/sections";
+import Fallback from "../components/fallback";
+import SEOHead from "../components/head";
 
 export default function Contact(props) {
-  const { contactPage } = props.data
-
-console.log(contactPage)
-
+  const { contactPage } = props.data;
 
   return (
     <Layout>
-      {contactPage.blocks && contactPage.blocks.map((block) => {
-        const { id, blocktype, ...componentProps } = block
-        const Component = sections[blocktype] || Fallback
-        return <Component key={id} {...componentProps} />
-      })}
+      {contactPage.blocks &&
+        contactPage.blocks.map((block) => {
+          const { id, blocktype, ...componentProps } = block;
+          const Component = sections[blocktype] || Fallback;
+          return <Component key={id} {...componentProps} />;
+        })}
     </Layout>
-  )
+  );
 }
 export const Head = (props) => {
-  const { contactPage } = props.data
-  return <SEOHead {...contactPage} />
-}
+  const { contactPage } = props.data;
+  return <SEOHead {...contactPage} />;
+};
 export const query = graphql`
   {
     contactPage {
@@ -42,4 +40,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;
