@@ -1,19 +1,25 @@
-import React from 'react'
-import ContactForm from "./contact-form"
-import { Container, Heading, Flex, FlexList,Icon,Subhead,Kicker, LinkList, Section, Box, Button, Text } from "./ui"
-import { graphql } from "gatsby"
-
+import React from "react";
+import ContactForm from "./contact-form";
+import {
+  Container,
+  Heading,
+  Flex,
+  FlexList,
+  Subhead,
+  Kicker,
+  Section,
+  Box,
+  Text,
+} from "./ui";
+import { graphql } from "gatsby";
 
 function ContactDetail(props) {
   return (
-
     <Flex>
       <Subhead>{props.heading}</Subhead>
       <Text>{props.text}</Text>
     </Flex>
-
-
-  )
+  );
 }
 
 export default function ContactDetailList(props) {
@@ -31,7 +37,7 @@ export default function ContactDetailList(props) {
                 {props.text && <Text>{props.text}</Text>}
               </Box>
               <FlexList gap={3} variant="column">
-                { props.content.map((contactDetail) => (
+                {props.content.map((contactDetail) => (
                   <li key={contactDetail.id}>
                     <ContactDetail {...contactDetail} />
                   </li>
@@ -45,8 +51,7 @@ export default function ContactDetailList(props) {
         </Flex>
       </Container>
     </Section>
-
-  )
+  );
 }
 
 export const query = graphql`
@@ -61,4 +66,4 @@ export const query = graphql`
       text
     }
   }
-`
+`;

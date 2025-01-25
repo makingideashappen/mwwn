@@ -26,6 +26,7 @@ export const Head = (props) => {
   const { aboutPage } = props.data;
   return <SEOHead {...aboutPage} />;
 };
+
 export const query = graphql`
   {
     aboutPage {

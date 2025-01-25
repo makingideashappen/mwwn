@@ -4,7 +4,6 @@ import * as React from "react";
 import {
   Box,
   ButtonList,
-  Container,
   Flex,
   Heading,
   Kicker,
@@ -20,12 +19,12 @@ import { Pagination } from "swiper/modules";
 
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 
 SwiperCore.use([Pagination]);
 
 export default function HeroList(props) {
-  const isMobile = useMediaQuery({ query: "(max-width: 840px)" });
+  // const isMobile = useMediaQuery({ query: "(max-width: 840px)" });
   return (
     //fix tooltip menu
     <Section style={{ position: "relative", zIndex: 0 }}>
