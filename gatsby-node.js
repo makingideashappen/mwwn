@@ -1,5 +1,5 @@
-const sanityBlockContentToHTML = require("@sanity/block-content-to-html")
-const path = require('path')
+const sanityBlockContentToHTML = require("@sanity/block-content-to-html");
+const path = require("path");
 
 exports.createSchemaCustomization = async ({ actions }) => {
   actions.createFieldExtension({
@@ -8,13 +8,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
       return {
         resolve(source) {
           // capitalize
-          const type = source._type
-          const cap = type.charAt(0).toUpperCase() + type.slice(1)
-          return cap
+          const type = source._type;
+          const cap = type.charAt(0).toUpperCase() + type.slice(1);
+          return cap;
         },
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "sanityBlockContent",
@@ -26,12 +26,12 @@ exports.createSchemaCustomization = async ({ actions }) => {
         resolve(source) {
           const html = sanityBlockContentToHTML({
             blocks: source[options.fieldName],
-          })
-          return html
+          });
+          return html;
         },
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "navItemType",
@@ -46,14 +46,14 @@ exports.createSchemaCustomization = async ({ actions }) => {
         resolve() {
           switch (options.name) {
             case "Group":
-              return "Group"
+              return "Group";
             default:
-              return "Link"
+              return "Link";
           }
         },
-      }
+      };
     },
-  })
+  });
 
   // abstract interfaces
   actions.createTypes(/* GraphQL */ `
@@ -136,11 +136,9 @@ exports.createSchemaCustomization = async ({ actions }) => {
     interface HomepageCta implements Node & HomepageBlock {
       id: ID!
       blocktype: String
-      kicker: String
       heading: String
-      text: String
       image: HomepageImage
-      links: [HomepageLink]
+      link: String
     }
 
     interface HomepageLogo implements Node {
@@ -171,7 +169,6 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [HomepageTestimonial]
     }
 
-   
     interface HomepageStat implements Node {
       id: ID!
       value: String
@@ -305,7 +302,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       logos: [HomepageLogo]
     }
 
-    interface ContactPage implements Node  {
+    interface ContactPage implements Node {
       id: ID!
       title: String
       description: String
@@ -399,7 +396,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       image: HomepageImage
       html: String!
     }
-  `)
+  `);
 
   // CMS-specific types for Homepage
   actions.createTypes(/* GraphQL */ `
@@ -441,7 +438,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       blocktype: String @blocktype
       text: String
       content: [HomepageHero]
-    } 
+    }
 
     type SanityHomepageFeature implements Node & HomepageFeature & HomepageBlock {
       id: ID!
@@ -465,11 +462,9 @@ exports.createSchemaCustomization = async ({ actions }) => {
     type SanityHomepageCta implements Node & HomepageCta & HomepageBlock {
       id: ID!
       blocktype: String @blocktype
-      kicker: String
       heading: String
-      text: String
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
-      links: [HomepageLink] @link
+      link: String
     }
 
     type SanityHomepageLogo implements Node & HomepageLogo {
@@ -499,7 +494,6 @@ exports.createSchemaCustomization = async ({ actions }) => {
       heading: String
       content: [HomepageTestimonial]
     }
-
 
     type SanityHomepageStat implements Node & HomepageStat {
       id: ID!
@@ -631,11 +625,11 @@ exports.createSchemaCustomization = async ({ actions }) => {
       logos: [HomepageLogo]
     }
 
-    type SanityContactDetail implements Node & ContactDetail{
+    type SanityContactDetail implements Node & ContactDetail {
       id: ID!
       heading: String
       text: String
-    } 
+    }
 
     type SanityContactDetailList implements Node & ContactDetail & ContactDetailList & HomepageBlock {
       id: ID!
@@ -654,21 +648,21 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [HomepageBlock] @link
     }
 
-    type SanityBlogPage implements & Node & BlogPage {
+    type SanityBlogPage implements Node & BlogPage {
       id: ID!
       title: String
       description: String
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
       content: [HomepageBlock] @link
     }
-    
+
     type SanityBlogPostList implements Node & BlogPostList & HomepageBlock {
       id: ID!
       blocktype: String @blocktype
       heading: String
       kicker: String
       text: String
-      content: [BlogPost] 
+      content: [BlogPost]
     }
 
     type SanityBlogPost implements Node & BlogPost & HomepageBlock {
@@ -725,45 +719,44 @@ exports.createSchemaCustomization = async ({ actions }) => {
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
       html: String! @sanityBlockContent(fieldName: "content")
     }
-  `)
-}
+  `);
+};
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createSlice, createPage } = actions
+  const { createSlice, createPage } = actions;
   const blogPostPage = path.resolve(`./src/templates/blog-post.js`);
   const technicalInfoPage = path.resolve(`./src/templates/technical-info.js`);
-
 
   createSlice({
     id: "header",
     component: require.resolve("./src/components/header.js"),
-  })
+  });
   createSlice({
     id: "footer",
     component: require.resolve("./src/components/footer.js"),
-  })
+  });
 
   const result = await graphql(`
     query AllPosts {
       allSanityBlogPost(sort: { publishedAt: DESC }, limit: 100) {
         nodes {
           id
-          slug 
+          slug
         }
       }
     }
-  `)
+  `);
 
   const resultTechInfo = await graphql(`
-  query AllPosts {
-    allSanityTechnicalInfo(sort: { publishedAt: DESC }, limit: 100) {
-      nodes {
-        id
-        slug 
+    query AllPosts {
+      allSanityTechnicalInfo(sort: { publishedAt: DESC }, limit: 100) {
+        nodes {
+          id
+          slug
+        }
       }
     }
-  }
-`)
+  `);
 
   if (result.errors) {
     throw result.errors;
@@ -772,14 +765,14 @@ exports.createPages = async ({ graphql, actions }) => {
   const posts = result.data.allSanityBlogPost.nodes;
   const technicalInfo = resultTechInfo.data.allSanityTechnicalInfo.nodes;
 
-  posts && posts
-    .forEach((post, index) => {
+  posts &&
+    posts.forEach((post, index) => {
       // const previous =
       //   index === posts.length - 1 ? null : posts[index + 1].node;
       // const next = index === 0 ? null : posts[index - 1].node;
 
       createPage({
-        path:  `/blog/${post.slug}`,
+        path: `/blog/${post.slug}`,
         component: blogPostPage,
         context: {
           slug: `${post.slug}`,
@@ -790,10 +783,8 @@ exports.createPages = async ({ graphql, actions }) => {
       });
     });
 
-
-    technicalInfo && technicalInfo
-    .forEach((post, index) => {
-
+  technicalInfo &&
+    technicalInfo.forEach((post, index) => {
       createPage({
         path: `/technical-info/${post.slug}`,
         component: technicalInfoPage,
@@ -803,5 +794,4 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       });
     });
-
 };

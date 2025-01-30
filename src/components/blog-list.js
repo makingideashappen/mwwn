@@ -23,13 +23,12 @@ function PostCard({ slug, image, heading, text, publishedAt, html, ...props }) {
     7
   )}/${publishedAt.slice(0, 4)}`;
   return (
-    <Box width="full" gap={5} radius="large">
+    <Box width="half" gap={5} radius="large" border>
       <BlockLink {...props} to={`/blog/${slug}`}>
         <Box background="muted">
           {image && (
             <Box>
               <GatsbyImage alt={image.alt} image={image.gatsbyImageData} />
-              <Space size={3} />
             </Box>
           )}
           <Box padding={3}>

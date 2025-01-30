@@ -1,6 +1,6 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import * as React from "react";
+import { graphql, lINK } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import {
   Nudge,
   Container,
@@ -9,48 +9,45 @@ import {
   Text,
   ButtonList,
   Kicker,
-} from "./ui"
+  BlockLink,
+} from "./ui";
 
 export default function HomepageCta(props) {
   return (
     <Container width="fullbleed">
-      <Section padding={5} radius="large" background="primary">
-        <Heading center>
-          {props.kicker && <Kicker center>{props.kicker}</Kicker>}
-          {props.heading}
-        </Heading>
-        <Text as="p" center variant="lead">
-          {props.text}
-        </Text>
-        <ButtonList links={props.links} variant="center" reversed />
-        {props.image && (
-          <Nudge left={5} right={5} bottom={5}>
-            <GatsbyImage
-              alt={props.image.alt}
-              image={getImage(props.image.gatsbyImageData)}
-            />
-          </Nudge>
-        )}
-      </Section>
+      <BlockLink to={props.link}>
+        <Section
+          padding={5}
+          radius="large"
+          background="primary"
+          border="primary"
+        >
+          <Text as="p" center variant="superHeading">
+            {props.text}
+          </Text>
+          {props.image && (
+            <Nudge left={5} right={5} bottom={5}>
+              <GatsbyImage
+                alt={props.image.alt}
+                image={getImage(props.image.gatsbyImageData)}
+              />
+            </Nudge>
+          )}
+        </Section>
+      </BlockLink>
     </Container>
-  )
+  );
 }
 
 export const query = graphql`
   fragment HomepageCtaContent on HomepageCta {
     id
-    kicker
     heading
-    text
     image {
       alt
       id
       gatsbyImageData
     }
-    links {
-      id
-      href
-      text
-    }
+    link
   }
-`
+`;

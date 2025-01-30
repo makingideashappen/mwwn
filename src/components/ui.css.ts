@@ -191,6 +191,9 @@ export const box = styleVariants({
     alignItems: "center",
     textAlign: "center",
   },
+  border: {
+    border: "2px solid",
+  },
 });
 
 export const section = style({

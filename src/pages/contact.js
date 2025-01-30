@@ -19,6 +19,7 @@ export default function Contact(props) {
     </Layout>
   );
 }
+
 export const Head = (props) => {
   const { contactPage } = props.data;
   return <SEOHead {...contactPage} />;

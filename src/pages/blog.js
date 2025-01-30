@@ -7,7 +7,7 @@ import SEOHead from "../components/head";
 
 export default function Blog(props) {
   const { blogPage } = props.data;
-
+  console.log(blogPage);
   return (
     <Layout>
       {blogPage.blocks.map((block) => {
