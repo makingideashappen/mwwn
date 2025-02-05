@@ -362,6 +362,42 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [HomepageBlock]
     }
 
+    interface JobPage implements Node {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage
+      content: [HomepageBlock]
+    }
+
+    interface Job implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      slug: String!
+      publishedAt: String
+      heading: String
+      kicker: String
+      image: HomepageImage
+      text: String
+      html: String!
+    }
+
+    interface JobPageList implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [Job]
+    }
+
+    interface TechnicalInfoPage implements Node {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage
+      content: [HomepageBlock]
+    }
     interface TechnicalInfoList implements Node & HomepageBlock {
       id: ID!
       blocktype: String @blocktype
@@ -677,6 +713,35 @@ exports.createSchemaCustomization = async ({ actions }) => {
       html: String! @sanityBlockContent(fieldName: "content")
     }
 
+    type SanityJobPage implements Node & JobPage {
+      id: ID!
+      title: String
+      description: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      content: [HomepageBlock] @link
+    }
+
+    type SanityJobPageList implements Node & JobPageList & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      kicker: String
+      text: String
+      content: [Job]
+    }
+
+    type SanityJob implements Node & Job & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      slug: String! @proxy(from: "slug.current")
+      publishedAt: String
+      heading: String
+      kicker: String
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      text: String
+      html: String! @sanityBlockContent(fieldName: "content")
+    }
+
     type SanityTechnicalInfoPage implements Node & TechnicalInfoPage {
       id: ID!
       title: String
@@ -726,6 +791,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createSlice, createPage } = actions;
   const blogPostPage = path.resolve(`./src/templates/blog-post.js`);
   const technicalInfoPage = path.resolve(`./src/templates/technical-info.js`);
+  const jobPage = path.resolve(`./src/templates/job.js`);
 
   createSlice({
     id: "header",
@@ -758,12 +824,24 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
+  const resultJob = await graphql(`
+    query AllPosts {
+      allSanityJob(sort: { publishedAt: DESC }, limit: 100) {
+        nodes {
+          id
+          slug
+        }
+      }
+    }
+  `);
+
   if (result.errors) {
     throw result.errors;
   }
 
   const posts = result.data.allSanityBlogPost.nodes;
   const technicalInfo = resultTechInfo.data.allSanityTechnicalInfo.nodes;
+  const job = resultJob.data.allSanityJob.nodes;
 
   posts &&
     posts.forEach((post, index) => {
@@ -791,6 +869,18 @@ exports.createPages = async ({ graphql, actions }) => {
         context: {
           slug: `${post.slug}`,
           technicalInfo: technicalInfo,
+        },
+      });
+    });
+
+  job &&
+    job.forEach((post, index) => {
+      createPage({
+        path: `/jobs/${post.slug}`,
+        component: jobPage,
+        context: {
+          slug: `${post.slug}`,
+          job: job,
         },
       });
     });

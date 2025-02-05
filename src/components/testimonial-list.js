@@ -1,5 +1,5 @@
-import * as React from "react"
-import { graphql } from "gatsby"
+import * as React from "react";
+import { graphql } from "gatsby";
 import {
   Container,
   Section,
@@ -11,7 +11,7 @@ import {
   Blockquote,
   Text,
   Avatar,
-} from "./ui"
+} from "./ui";
 
 function Testimonial(props) {
   return (
@@ -30,7 +30,7 @@ function Testimonial(props) {
         </figcaption>
       </Blockquote>
     </Flex>
-  )
+  );
 }
 
 export default function TestimonialList(props) {
@@ -52,7 +52,7 @@ export default function TestimonialList(props) {
         </FlexList>
       </Container>
     </Section>
-  )
+  );
 }
 
 export const query = graphql`
@@ -71,4 +71,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

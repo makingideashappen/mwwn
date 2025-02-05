@@ -38,7 +38,15 @@ export default function HeroList(props) {
         >
           {props.content.map((item, index) => (
             <SwiperSlide>
-              <Flex gap={4}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: isMobile ? "column" : "row",
+                  jsutifyContent: "center",
+                  alignItems: "center",
+                  background: "#f7fafa",
+                }}
+              >
                 <Box>
                   {item.image && (
                     <GatsbyImage
@@ -47,7 +55,7 @@ export default function HeroList(props) {
                     />
                   )}
                 </Box>
-                <Box>
+                <Box center paddingY={5}>
                   <Heading as="h1">
                     {item.kicker && <Kicker>{item.kicker}</Kicker>}
                     {item.h1}
@@ -56,7 +64,7 @@ export default function HeroList(props) {
                   <Text as="p">{item.text}</Text>
                   <ButtonList links={item.links} />
                 </Box>
-              </Flex>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

@@ -66,7 +66,16 @@ export default function Header() {
   }, [isOpen]);
 
   return (
-    <header>
+    <header
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        zIndex: 15,
+        background: "white",
+        width: "100%",
+      }}
+    >
       <Container className={desktopHeaderNavWrapper}>
         <Space size={2} />
         <Flex variant="spaceBetween">

@@ -4,6 +4,7 @@ import Layout from "../components/layout";
 import * as sections from "../components/sections";
 import Fallback from "../components/fallback";
 import SEOHead from "../components/head";
+import GoogleMapComponent from "../components/map";
 
 export default function Contact(props) {
   const { contactPage } = props.data;
@@ -16,6 +17,7 @@ export default function Contact(props) {
           const Component = sections[blocktype] || Fallback;
           return <Component key={id} {...componentProps} />;
         })}
+      <GoogleMapComponent />;
     </Layout>
   );
 }

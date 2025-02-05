@@ -1,35 +1,72 @@
-import * as React from "react";
-import Layout from "../components/layout";
-import { Container, Box, Heading, Text, Link, Flex } from "../components/ui";
-import ChevronRight from "../components/chevron-right";
-import * as styles from "../components/404.css";
-import SEOHead from "../components/head";
+import React from "react";
+import { Link } from "gatsby";
 
-export default function NotFound() {
+const NotFoundPage = () => {
   return (
-    <Layout>
-      <Box paddingY={4}>
-        <Container>
-          <Flex variant="column">
-            <Heading variant="mega" className={styles.heading}>
-              404
-            </Heading>
-            <Heading as="h1">Page not found</Heading>
-            <Flex variant="column" gap={0}>
-              <Text variant="lead" className={styles.text}>
-                Sorry! We couldn’t find the page you were looking for.
-              </Text>
-              <Link to="/" className={styles.link}>
-                <span>Back to home</span>
-                <ChevronRight className={styles.linkChevron} />
-              </Link>
-            </Flex>
-          </Flex>
-        </Container>
-      </Box>
-    </Layout>
+    <main
+      style={{
+        display: "flex",
+        height: "100vh",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(to bottom right, #e0e7ff, #f3e8ff)",
+      }}
+    >
+      <div
+        style={{
+          padding: "2.5rem",
+          backgroundColor: "white",
+          borderRadius: "1.5rem",
+          boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
+          textAlign: "center",
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "3rem",
+            fontWeight: "800",
+            color: "#7c3aed",
+          }}
+        >
+          404: Page Not Found
+        </h1>
+        <p
+          style={{
+            color: "#374151",
+            marginTop: "1rem",
+            fontSize: "1.125rem",
+          }}
+        >
+          Oops! The page you're looking for doesn't exist or has been moved.
+        </p>
+        <Link
+          to="/"
+          style={{
+            marginTop: "1.5rem",
+            display: "inline-block",
+            padding: "1rem 2rem",
+            color: "white",
+            background: "linear-gradient(to right, #3b82f6, #9333ea)",
+            borderRadius: "1rem",
+            fontSize: "1.125rem",
+            boxShadow: "0 5px 15px rgba(0, 0, 0, 0.15)",
+            textDecoration: "none",
+            transition: "all 0.3s ease",
+          }}
+          onMouseOver={(e) =>
+            (e.target.style.background =
+              "linear-gradient(to right, #2563eb, #7e22ce)")
+          }
+          onMouseOut={(e) =>
+            (e.target.style.background =
+              "linear-gradient(to right, #3b82f6, #9333ea)")
+          }
+        >
+          Back to Home
+        </Link>
+      </div>
+    </main>
   );
-}
-export const Head = () => {
-  return <SEOHead title="404: Page not found" />;
 };
+
+export default NotFoundPage;

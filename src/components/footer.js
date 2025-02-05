@@ -1,5 +1,5 @@
-import * as React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import * as React from "react";
+import { graphql, useStaticQuery } from "gatsby";
 import {
   Twitter,
   Twitch,
@@ -7,7 +7,7 @@ import {
   Facebook,
   Youtube,
   GitHub,
-} from "react-feather"
+} from "react-feather";
 import {
   Container,
   Flex,
@@ -18,8 +18,8 @@ import {
   Text,
   IconLink,
   VisuallyHidden,
-} from "./ui"
-import BrandLogo from "./brand-logo"
+} from "./ui";
+import BrandLogo from "./brand-logo";
 import { useMediaQuery } from "react-responsive";
 
 const socialMedia = {
@@ -53,21 +53,21 @@ const socialMedia = {
     name: "Twitch",
     icon: <Twitch />,
   },
-}
+};
 
 const getSocialURL = ({ service, username }) => {
-  const domain = socialMedia[service]?.url
-  if (!domain) return false
-  return `${domain}/${username}`
-}
+  const domain = socialMedia[service]?.url;
+  if (!domain) return false;
+  return `${domain}/${username}`;
+};
 
 const getSocialIcon = ({ service }) => {
-  return socialMedia[service]?.icon
-}
+  return socialMedia[service]?.icon;
+};
 
 const getSocialName = ({ service }) => {
-  return socialMedia[service]?.name
-}
+  return socialMedia[service]?.name;
+};
 
 export default function Footer() {
   const isMobile = useMediaQuery({ query: "(max-width: 840px)" });
@@ -96,10 +96,21 @@ export default function Footer() {
         }
       }
     }
-  `)
+  `);
 
-  const mobileSocials = isMobile ?{}: {position:"fixed",background:"white",bottom:0,right:0,padding:"1.2rem",zIndex:10, borderRadius:"2rem 0rem 0rem 0rem" ,boxShadow: "0px 3px 18px rgba(0, 0, 0, 0.2)"}
-  const { links, meta, socialLinks, copyright } = data.layout.footer
+  const mobileSocials = isMobile
+    ? {}
+    : {
+        position: "fixed",
+        background: "white",
+        bottom: 0,
+        right: 0,
+        padding: "1.2rem",
+        zIndex: 10,
+        borderRadius: "2rem 0rem 0rem 0rem",
+        boxShadow: "0px 3px 18px rgba(0, 0, 0, 0.2)",
+      };
+  const { links, meta, socialLinks, copyright } = data.layout.footer;
 
   return (
     <Box as="footer" paddingY={4}>
@@ -113,7 +124,7 @@ export default function Footer() {
           <FlexList style={mobileSocials}>
             {socialLinks &&
               socialLinks.map((link) => {
-                const url = getSocialURL(link)
+                const url = getSocialURL(link);
                 return (
                   url && (
                     <li key={link.id}>
@@ -123,12 +134,12 @@ export default function Footer() {
                       </IconLink>
                     </li>
                   )
-                )
+                );
               })}
           </FlexList>
         </Flex>
         <Space size={5} />
-        <Flex variant="start" responsive >
+        <Flex variant="start" responsive>
           <FlexList variant="start" responsive>
             {links &&
               links.map((link) => (
@@ -140,10 +151,10 @@ export default function Footer() {
           <Space />
           <FlexList>
             {meta &&
-              meta.map((link,i) => (
+              meta.map((link, i) => (
                 <li key={i}>
                   <NavLink to={link ? link.href : ""}>
-                    <Text variant="small">{link ? link.text:""}</Text>
+                    <Text variant="small">{link ? link.text : ""}</Text>
                   </NavLink>
                 </li>
               ))}
@@ -153,5 +164,5 @@ export default function Footer() {
       </Container>
       <Space size={3} />
     </Box>
-  )
+  );
 }

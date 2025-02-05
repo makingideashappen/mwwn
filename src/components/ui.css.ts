@@ -428,6 +428,7 @@ export const navlink = style({
   transitionProperty: "color",
   transitionDuration: "0.2s",
   transitionTimingFunction: "ease-in-out",
+  fontSize: theme.fontSizes[4],
   ":hover": {
     color: theme.colors.active,
   },

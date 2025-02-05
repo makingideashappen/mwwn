@@ -14,7 +14,6 @@ import {
 } from "./ui";
 
 import { useMediaQuery } from "react-responsive";
-
 export default function HomepageCta(props) {
   const isMobile = useMediaQuery({ query: "(max-width: 840px)" });
 
@@ -41,16 +40,36 @@ export default function HomepageCta(props) {
                 top: "30%",
               }}
             >
-              <Heading center>{props.heading}</Heading>
+              <div
+                style={{
+                  background: "#0f365a",
+                  width: 220,
+                  height: 220,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "none",
+                  justifySelf: "center",
+                  zIndex: 2,
+                }}
+              >
+                <Heading center>{props.heading}</Heading>
+              </div>
+
               <Text bold as="p" center variant="lead">
                 {props.text}
               </Text>
               <ButtonList links={props.links} variant="center" reversed />
             </Container>
+
             {props.image && (
               <Nudge left={5} right={5} bottom={4} top={4}>
                 <GatsbyImage
-                  style={{ width: isMobile ? "200%" : "100%", height: "100%" }}
+                  style={{
+                    width: isMobile ? "200%" : "100%",
+                    maxHeight: "420px",
+                  }}
                   alt={props.image.alt}
                   image={getImage(props.image.gatsbyImageData)}
                 />

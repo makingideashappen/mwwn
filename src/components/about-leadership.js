@@ -1,6 +1,6 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import * as React from "react";
+import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import {
   Container,
   FlexList,
@@ -10,7 +10,7 @@ import {
   Box,
   Kicker,
   Space,
-} from "./ui"
+} from "./ui";
 
 function AboutProfile(props) {
   return (
@@ -35,7 +35,7 @@ function AboutProfile(props) {
         )}
       </Box>
     </Box>
-  )
+  );
 }
 
 export default function AboutLeadership(props) {
@@ -54,7 +54,7 @@ export default function AboutLeadership(props) {
         </FlexList>
       </Container>
     </Section>
-  )
+  );
 }
 
 export const query = graphql`
@@ -73,4 +73,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

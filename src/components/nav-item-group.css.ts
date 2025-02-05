@@ -1,11 +1,11 @@
-import { style, styleVariants } from "@vanilla-extract/css"
-import { theme } from "../theme.css"
-import { media } from "./ui.css"
-import { mobileNavLink } from "./header.css"
+import { style, styleVariants } from "@vanilla-extract/css";
+import { theme } from "../theme.css";
+import { media } from "./ui.css";
+import { mobileNavLink } from "./header.css";
 
 export const navGroupWrapper = style({
   position: "relative",
-})
+});
 
 export const navGroupTitle = style([
   mobileNavLink,
@@ -16,12 +16,12 @@ export const navGroupTitle = style([
         padding: 0,
         alignItems: "baseline",
         color: "inherit",
-        fontSize: "inherit",
+        fontSize: theme.fontSizes[4],
         ":hover": { color: theme.colors.active },
       },
     },
   },
-])
+]);
 
 export const navGroupTitleInner = style({
   "@media": {
@@ -29,7 +29,7 @@ export const navGroupTitleInner = style({
       alignItems: "baseline",
     },
   },
-})
+});
 
 const navLinkListWrapperBase = style({
   position: "relative",
@@ -63,17 +63,15 @@ const navLinkListWrapperBase = style({
       },
     },
   },
-})
+});
 
 export const navLinkListWrapper = styleVariants({
   opened: [
     navLinkListWrapperBase,
- 
     {
       "@media": {
         [media.small]: {
           animation: "zoomInUp 0.15s ease-in-out",
-          
         },
       },
     },
@@ -89,7 +87,7 @@ export const navLinkListWrapper = styleVariants({
       },
     },
   ],
-})
+});
 
 export const navLinkListWrapperInner = style({
   paddingLeft: theme.space[4],
@@ -100,7 +98,7 @@ export const navLinkListWrapperInner = style({
       alignItems: "stretch",
     },
   },
-})
+});
 
 export const navIcon = style({
   flexShrink: 0,
@@ -112,7 +110,7 @@ export const navIcon = style({
       height: theme.sizes.navIconSmall,
     },
   },
-})
+});
 
 export const navLinkListLink = style([
   mobileNavLink,
@@ -132,7 +130,7 @@ export const navLinkListLink = style([
       },
     },
   },
-])
+]);
 
 export const navLinkDescription = style({
   display: "none",
@@ -145,9 +143,9 @@ export const navLinkDescription = style({
       minWidth: "300px",
     },
   },
-})
+});
 
 export const navLinkTitle = style({
   margin: 0,
   padding: 0,
-})
+});
