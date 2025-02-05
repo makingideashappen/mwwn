@@ -162,7 +162,7 @@ export default function Footer() {
           <Text variant="small">{copyright}</Text>
         </Flex>
       </Container>
-      <img
+      {/* <img
         src={Part}
         alt=""
         style={{
@@ -171,7 +171,7 @@ export default function Footer() {
           opacity: 0.8,
           psoition: "absolute",
         }}
-      />
+      /> */}
     </Box>
   );
 }
