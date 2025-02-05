@@ -21,7 +21,7 @@ import {
 } from "./ui";
 import BrandLogo from "./brand-logo";
 import { useMediaQuery } from "react-responsive";
-
+import Part from "../assets/part.jpg";
 const socialMedia = {
   TWITTER: {
     url: "https://twitter.com",
@@ -162,7 +162,16 @@ export default function Footer() {
           <Text variant="small">{copyright}</Text>
         </Flex>
       </Container>
-      <Space size={3} />
+      <img
+        src={Part}
+        alt=""
+        style={{
+          width: 280,
+          height: 280,
+          opacity: 0.8,
+          psoition: "absolute",
+        }}
+      />
     </Box>
   );
 }
