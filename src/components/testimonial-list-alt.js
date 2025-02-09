@@ -29,6 +29,7 @@ SwiperCore.use([Pagination]);
 
 function TestimonialListAlt(props) {
   const isMobile = useMediaQuery({ query: "(max-width: 840px)" });
+
   console.log(props);
   return (
     <>

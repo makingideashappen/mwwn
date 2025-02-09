@@ -256,3 +256,35 @@ export function HeroSection(props) {
 export function BoxStyled(props) {
   return <Section className={styles.boxStyled} {...props} />;
 }
+
+export function Card({ title, description, image, alt, link, ...props }) {
+  return (
+    <Box
+      as="article"
+      padding="large"
+      radius="large"
+      background="white"
+      {...props}
+    >
+      <Flex
+        variant="column"
+        gap={4}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <GatsbyImage
+          alt={alt}
+          image={getImage(image)}
+          className={styles.cardImage}
+        />
+        <Text variant="heading" as="h2">
+          {title}
+        </Text>
+        <Text variant="body">{description}</Text>
+        <Link to={link} variant="primary">
+          Learn More
+        </Link>
+      </Flex>
+    </Box>
+  );
+}

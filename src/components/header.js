@@ -21,7 +21,7 @@ import {
 } from "./header.css";
 import NavItemGroup from "./nav-item-group";
 import BrandLogo from "./brand-logo";
-
+import CallPhone from "./callPhone";
 export default function Header() {
   const data = useStaticQuery(graphql`
     query {
@@ -100,6 +100,7 @@ export default function Header() {
                 ))}
             </FlexList>
           </nav>
+          <CallPhone />
           <div>{cta && <Button to={cta.href}>{cta.text}</Button>}</div>
         </Flex>
       </Container>
@@ -158,6 +159,8 @@ export default function Header() {
                 </li>
               ))}
             </FlexList>
+
+            <CallPhone />
           </nav>
         </div>
       )}

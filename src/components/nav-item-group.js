@@ -1,66 +1,66 @@
-import * as React from "react"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import { Box, Flex, FlexList, NavButtonLink, NavLink } from "./ui"
-import Caret from "./caret"
-import * as styles from "./nav-item-group.css"
-import { media } from "./ui.css"
+import * as React from "react";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { Box, Flex, FlexList, NavButtonLink, NavLink } from "./ui";
+import Caret from "./caret";
+import * as styles from "./nav-item-group.css";
+import { media } from "./ui.css";
 
 export default function NavItemGroup({ name, navItems }) {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const [popupVisible, setPopupVisible] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [popupVisible, setPopupVisible] = React.useState(false);
   const isSmallScreen = () => {
-    return !window.matchMedia(media.small).matches
-  }
+    return !window.matchMedia(media.small).matches;
+  };
   const onGroupButtonClick = React.useCallback(() => {
     if (!isOpen) {
-      setIsOpen(true)
-      setPopupVisible(true)
+      setIsOpen(true);
+      setPopupVisible(true);
     } else {
       // ensures that sub-menu closes when no animation is available
       if (isSmallScreen()) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-      setPopupVisible(false)
+      setPopupVisible(false);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   React.useEffect(() => {
     // crude implementation of animating the popup without a library
-    const popupBox = document.querySelector(`[data-id="${name}-popup-box"]`)
+    const popupBox = document.querySelector(`[data-id="${name}-popup-box"]`);
     const onAnimationEnd = ({ animationName }) => {
       if (animationName === `zoomOutDown`) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    }
+    };
     if (popupBox) {
-      popupBox.addEventListener("animationend", onAnimationEnd)
+      popupBox.addEventListener("animationend", onAnimationEnd);
       return () => {
-        popupBox.removeEventListener("animationend", onAnimationEnd)
-      }
+        popupBox.removeEventListener("animationend", onAnimationEnd);
+      };
     }
-  }, [isOpen, name])
+  }, [isOpen, name]);
 
   React.useEffect(() => {
     // hide menu when clicked outside
     const handleClickOutside = (event) => {
       const wrapper = document.querySelector(
         `[data-id="${name}-group-wrapper"]`
-      )
+      );
       if (
         !isSmallScreen() &&
         isOpen &&
         wrapper &&
         !wrapper.contains(event.target)
       ) {
-        onGroupButtonClick()
+        onGroupButtonClick();
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [name, isOpen, onGroupButtonClick])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [name, isOpen, onGroupButtonClick]);
 
   return (
     <Flex
@@ -84,13 +84,11 @@ export default function NavItemGroup({ name, navItems }) {
           className={
             styles.navLinkListWrapper[popupVisible ? "opened" : "closed"]
           }
-
         >
           <FlexList
             variant="columnStart"
             gap={2}
             className={styles.navLinkListWrapperInner}
-
           >
             {navItems.map((navItem) => (
               <li key={navItem.id}>
@@ -121,5 +119,5 @@ export default function NavItemGroup({ name, navItems }) {
         </Box>
       )}
     </Flex>
-  )
+  );
 }
