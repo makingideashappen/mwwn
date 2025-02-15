@@ -65,8 +65,10 @@ const MobileSocialsContainer = styled(FlexList)`
     ul {
       li {
         a {
-          width: 2rem;
-          height: 2rem;
+          svg {
+            width: 2rem;
+            height: 2rem;
+          }
         }
       }
     }
