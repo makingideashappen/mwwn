@@ -116,9 +116,10 @@ export default function Header() {
           >
             <NavLink to="/">
               <VisuallyHidden>Home</VisuallyHidden>
-              <BrandLogo />
+              <BrandLogo isOpen={isOpen} />
             </NavLink>
           </span>
+
           <Flex>
             <Space />
             <div>
@@ -144,6 +145,7 @@ export default function Header() {
       </Container>
       {isOpen && (
         <div className={mobileNavOverlay}>
+          <br />
           <nav>
             <FlexList responsive variant="stretch">
               {navItems?.map((navItem) => (
@@ -161,6 +163,7 @@ export default function Header() {
                 </li>
               ))}
             </FlexList>
+            <br />
             <CallPhone />
           </nav>
         </div>
