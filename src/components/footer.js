@@ -48,24 +48,24 @@ const MobileSocialsContainer = styled(FlexList)`
     list-style: none;
     margin: 0;
     padding: 0.8rem;
-
     li {
       display: flex;
       justify-content: center;
       alighn-items: center;
       a {
         margin: 0.2rem;
+        svg {
+          width: 3rem;
+          height: 3rem;
+          @media (max-width: 800px) {
+            width: 2rem;
+            height: 2rem;
+          }
+        }
       }
     }
   }
 `;
-
-// const StyledFooterImage = styled.img`
-//   width: 280px;
-//   height: 280px;
-//   opacity: 0.8;
-//   position: absolute;
-// `;
 
 const getSocialURL = ({ service, username }) => {
   const domain = socialMedia[service]?.url;

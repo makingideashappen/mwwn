@@ -1,6 +1,6 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import * as React from "react";
+import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import {
   Container,
   Section,
@@ -10,11 +10,11 @@ import {
   Kicker,
   Text,
   ButtonList,
-} from "./ui"
+} from "./ui";
 
 export default function Feature(props) {
   return (
-    <Section padding={4} background="muted">
+    <Section padding={0} background="muted">
       <Container>
         <Flex gap={4} variant="responsive">
           <Box width="half" order={props.flip ? 1 : null}>
@@ -36,7 +36,7 @@ export default function Feature(props) {
         </Flex>
       </Container>
     </Section>
-  )
+  );
 }
 
 export const query = graphql`
@@ -56,4 +56,4 @@ export const query = graphql`
       alt
     }
   }
-`
+`;

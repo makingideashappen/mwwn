@@ -1,11 +1,11 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import { Container, Box, Kicker, Heading, Text } from "./ui"
-import Feature from "./feature"
+import * as React from "react";
+import { graphql } from "gatsby";
+import { Container, Box, Kicker, Heading, Text } from "./ui";
+import Feature from "./feature";
 
 export default function FeatureList(props) {
   return (
-    <Container width="full" style={{marginTop:"2rem"}}>
+    <Container width="full" style={{ marginTop: "2rem" }}>
       <Box background="muted" radius="large">
         <Box center paddingY={5}>
           <Heading>
@@ -19,7 +19,7 @@ export default function FeatureList(props) {
         ))}
       </Box>
     </Container>
-  )
+  );
 }
 
 export const query = graphql`
@@ -33,4 +33,4 @@ export const query = graphql`
       ...HomepageFeatureContent
     }
   }
-`
+`;

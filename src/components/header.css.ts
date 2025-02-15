@@ -46,7 +46,7 @@ export const mobileNavOverlay = style({
   height: "100vh",
   paddingTop: theme.space[4],
   background: theme.colors.primary,
-  zIndex: 1,
+  zIndex: 10,
   "@media": {
     [media.small]: {
       display: "none",

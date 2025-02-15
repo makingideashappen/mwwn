@@ -15,6 +15,7 @@ import {
   Text,
 } from "./ui";
 import { graphql } from "gatsby";
+import Ornament from "./ornament.js";
 
 function ContactDetail(props) {
   return (
@@ -27,33 +28,38 @@ function ContactDetail(props) {
 
 export default function ContactDetailList(props) {
   return (
-    <Section padding={4} background="muted">
-      <Container>
-        <Flex gap={4} variant="responsive">
-          <Box width="half">
-            <Box>
-              <Box center paddingY={4}>
-                <Heading>
-                  {props.kicker && <Kicker>{props.kicker}</Kicker>}
-                  {props.heading}
-                </Heading>
-                {props.text && <Text>{props.text}</Text>}
+    <>
+      <Section padding={4} background="muted">
+        <Container>
+          <Flex gap={4} variant="responsive">
+            <Box width="half">
+              <Box>
+                <Box center paddingY={4}>
+                  <Heading>
+                    {props.kicker && <Kicker>{props.kicker}</Kicker>}
+                    {props.heading}
+                  </Heading>
+                  {props.text && <Text>{props.text}</Text>}
+                </Box>
+                <FlexList gap={3} variant="column">
+                  {props.content.map((contactDetail, x) => (
+                    <li key={x}>
+                      <ContactDetail {...contactDetail} />
+                    </li>
+                  ))}
+                </FlexList>
               </Box>
-              <FlexList gap={3} variant="column">
-                {props.content.map((contactDetail, x) => (
-                  <li key={x}>
-                    <ContactDetail {...contactDetail} />
-                  </li>
-                ))}
-              </FlexList>
             </Box>
-          </Box>
-          <Box width="half">
-            <ContactForm />
-          </Box>
-        </Flex>
-      </Container>
-    </Section>
+            <Box width="half">
+              <ContactForm />
+            </Box>
+          </Flex>
+        </Container>
+      </Section>
+      <Section>
+        <Ornament />
+      </Section>
+    </>
   );
 }
 

@@ -12,7 +12,6 @@ import {
   Subhead,
   Text,
 } from "./ui";
-
 export default function Hero(props) {
   return (
     <Section>
