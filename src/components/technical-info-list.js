@@ -9,7 +9,6 @@ import {
   Kicker,
   Text,
   SuperHeading,
-  Flex,
 } from "../components/ui";
 import SEOHead from "../components/head";
 import { graphql } from "gatsby";
@@ -34,7 +33,7 @@ function PostCardSmall({
   return (
     <BlockLink {...props} to={`/technical-info/${slug}`}>
       <Box background="muted" radius="large" border>
-        <Flex width="full">
+        <FlexList width="full" variant="responsive">
           {image && (
             <Box center>
               <GatsbyImage
@@ -57,7 +56,7 @@ function PostCardSmall({
             </Subhead>
             <Text>{date}</Text>
           </Box>
-        </Flex>
+        </FlexList>
       </Box>
     </BlockLink>
   );
