@@ -57,10 +57,16 @@ const MobileSocialsContainer = styled(FlexList)`
         svg {
           width: 3rem;
           height: 3rem;
-          @media (max-width: 800px) {
-            width: 2rem;
-            height: 2rem;
-          }
+        }
+      }
+    }
+  }
+  @media (max-width: 800px) {
+    ul {
+      li {
+        a {
+          width: 2rem;
+          height: 2rem;
         }
       }
     }
@@ -111,60 +117,68 @@ export default function Footer() {
   const { links, meta, socialLinks, copyright } = data.layout.footer;
 
   return (
-    <FooterContainer as="footer">
-      <Container>
-        <Flex variant="start" responsive>
-          <NavLink to="/">
-            <VisuallyHidden>Home</VisuallyHidden>
-            <BrandLogo />
-          </NavLink>
-          <Space />
-          <MobileSocialsContainer>
-            <ul>
-              {socialLinks &&
-                socialLinks.map((link) => {
-                  const url = getSocialURL(link);
-                  return (
-                    url && (
-                      <li key={link.id}>
-                        <IconLink to={url}>
-                          <VisuallyHidden>{getSocialName(link)}</VisuallyHidden>
-                          {getSocialIcon(link)}
-                        </IconLink>
-                      </li>
-                    )
-                  );
-                })}
-            </ul>
-          </MobileSocialsContainer>
-        </Flex>
-        <Space size={5} />
-        <Flex variant="start" responsive>
-          <FlexList variant="start" responsive>
-            {links &&
-              links.map((link) => (
-                <li key={link.id}>
-                  <NavLink to={link.href}>{link.text}</NavLink>
-                </li>
-              ))}
-          </FlexList>
-          <Space />
-          <FlexList>
-            {meta &&
-              meta.map((link, i) => (
-                <li key={i}>
-                  <NavLink to={link ? link.href : ""}>
-                    <Text variant="small">{link ? link.text : ""}</Text>
-                  </NavLink>
-                </li>
-              ))}
-          </FlexList>
-          <Text variant="small">{copyright}</Text>
-        </Flex>
-      </Container>
-      <Ornament />
-      {/* Uncomment if needed */}
-      {/* <StyledFooterImage src={Part} alt="" /> */}
-    </FooterContainer>
+    <>
+      {socialLinks ? (
+        <FooterContainer as="footer">
+          <Container>
+            <Flex variant="start" responsive>
+              <NavLink to="/">
+                <VisuallyHidden>Home</VisuallyHidden>
+                <BrandLogo />
+              </NavLink>
+              <Space />
+              <MobileSocialsContainer>
+                <ul>
+                  {socialLinks &&
+                    socialLinks.map((link) => {
+                      const url = getSocialURL(link);
+                      return (
+                        url && (
+                          <li key={link.id}>
+                            <IconLink to={url}>
+                              <VisuallyHidden>
+                                {getSocialName(link)}
+                              </VisuallyHidden>
+                              {getSocialIcon(link)}
+                            </IconLink>
+                          </li>
+                        )
+                      );
+                    })}
+                </ul>
+              </MobileSocialsContainer>
+            </Flex>
+            <Space size={5} />
+            <Flex variant="start" responsive>
+              <FlexList variant="start" responsive>
+                {links &&
+                  links.map((link) => (
+                    <li key={link.id}>
+                      <NavLink to={link.href}>{link.text}</NavLink>
+                    </li>
+                  ))}
+              </FlexList>
+              <Space />
+              <FlexList>
+                {meta &&
+                  meta.map((link, i) => (
+                    <li key={i}>
+                      <NavLink to={link ? link.href : ""}>
+                        <Text variant="small">{link ? link.text : ""}</Text>
+                      </NavLink>
+                    </li>
+                  ))}
+              </FlexList>
+              <Text variant="small">{copyright}</Text>
+            </Flex>
+          </Container>
+          <Ornament />
+          {/* Uncomment if needed */}
+          {/* <StyledFooterImage src={Part} alt="" /> */}
+        </FooterContainer>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
