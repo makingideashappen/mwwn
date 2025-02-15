@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
     <div style={{ paddingTop: "120px" }}>
       <Slice alias="header" />
       {children}
-
+      <CookieBanner />
       <Slice alias="footer" />
     </div>
   );
