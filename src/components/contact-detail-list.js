@@ -19,7 +19,7 @@ import Ornament from "./ornament.js";
 
 function ContactDetail(props) {
   return (
-    <Flex>
+    <Flex variant="responsive">
       <Subhead>{props.heading}</Subhead>
       <Text>{props.text}</Text>
     </Flex>
@@ -32,14 +32,18 @@ export default function ContactDetailList(props) {
       <Section padding={4} background="muted">
         <Container>
           <Flex gap={4} variant="responsive">
+            <Box padding={0} width="half">
+              <Heading>{props.heading}</Heading>
+
+              <ContactForm />
+            </Box>
             <Box width="half">
               <Box>
                 <Box center paddingY={4}>
                   <Heading>
                     {props.kicker && <Kicker>{props.kicker}</Kicker>}
-                    {props.heading}
+                    {props.text && <Text>{props.text}</Text>}{" "}
                   </Heading>
-                  {props.text && <Text>{props.text}</Text>}
                 </Box>
                 <FlexList gap={3} variant="column">
                   {props.content.map((contactDetail, x) => (
@@ -49,9 +53,6 @@ export default function ContactDetailList(props) {
                   ))}
                 </FlexList>
               </Box>
-            </Box>
-            <Box width="half">
-              <ContactForm />
             </Box>
           </Flex>
         </Container>
