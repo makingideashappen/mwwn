@@ -14,7 +14,7 @@ import {
 
 export default function Feature(props) {
   return (
-    <Section padding={0} background="muted">
+    <Section padding={1} background="muted">
       <Container>
         <Flex gap={4} variant="responsive">
           <Box width="half" order={props.flip ? 1 : null}>

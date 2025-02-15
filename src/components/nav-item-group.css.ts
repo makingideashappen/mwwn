@@ -138,7 +138,7 @@ export const navLinkDescription = style({
   "@media": {
     [media.small]: {
       display: "block",
-      fontSize: theme.fontSizes[1],
+      fontSize: theme.fontSizes[5],
       margin: 0,
       minWidth: "300px",
     },

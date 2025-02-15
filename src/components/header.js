@@ -78,11 +78,13 @@ export default function Header() {
     >
       <Container className={desktopHeaderNavWrapper}>
         <Space size={2} />
+
         <Flex variant="spaceBetween">
           <NavLink to="/">
             <VisuallyHidden>Home</VisuallyHidden>
             <BrandLogo />
           </NavLink>
+
           <nav>
             <FlexList gap={4}>
               {navItems &&
@@ -159,7 +161,6 @@ export default function Header() {
                 </li>
               ))}
             </FlexList>
-
             <CallPhone />
           </nav>
         </div>
