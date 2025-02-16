@@ -33,7 +33,44 @@ const FooterContainer = styled(Box)`
   padding: 0.2rem 0;
 `;
 
-const MobileSocialsContainer = styled(FlexList)`
+const getSocialURL = ({ service, username }) => {
+  const domain = socialMedia[service]?.url;
+  if (!domain) return false;
+  return `${domain}/${username}`;
+};
+
+const getSocialIcon = ({ service }) => {
+  return socialMedia[service]?.icon;
+};
+
+const getSocialName = ({ service }) => {
+  return socialMedia[service]?.name;
+};
+
+const MobileSocialsContainer = ({ socialLinks }) => {
+  return (
+    <StyledMobileSocialsContainer>
+      <ul>
+        {socialLinks &&
+          socialLinks.map((link) => {
+            const url = getSocialURL(link);
+            return (
+              url && (
+                <li key={link.id}>
+                  <IconLink to={url}>
+                    <VisuallyHidden>{getSocialName(link)}</VisuallyHidden>
+                    {getSocialIcon(link)}
+                  </IconLink>
+                </li>
+              )
+            );
+          })}
+      </ul>
+    </StyledMobileSocialsContainer>
+  );
+};
+
+const StyledMobileSocialsContainer = styled(FlexList)`
   position: fixed;
   background: white;
   bottom: 0;
@@ -51,7 +88,7 @@ const MobileSocialsContainer = styled(FlexList)`
     li {
       display: flex;
       justify-content: center;
-      alighn-items: center;
+      align-items: center;
       a {
         margin: 0.2rem;
         svg {
@@ -74,20 +111,6 @@ const MobileSocialsContainer = styled(FlexList)`
     }
   }
 `;
-
-const getSocialURL = ({ service, username }) => {
-  const domain = socialMedia[service]?.url;
-  if (!domain) return false;
-  return `${domain}/${username}`;
-};
-
-const getSocialIcon = ({ service }) => {
-  return socialMedia[service]?.icon;
-};
-
-const getSocialName = ({ service }) => {
-  return socialMedia[service]?.name;
-};
 
 export default function Footer() {
   const data = useStaticQuery(graphql`
@@ -120,67 +143,42 @@ export default function Footer() {
 
   return (
     <>
-      {socialLinks ? (
-        <FooterContainer as="footer">
-          <Container>
-            <Flex variant="start" responsive>
-              <NavLink to="/">
-                <VisuallyHidden>Home</VisuallyHidden>
-                <BrandLogo />
-              </NavLink>
-              <Space />
-              <MobileSocialsContainer>
-                <ul>
-                  {socialLinks &&
-                    socialLinks.map((link) => {
-                      const url = getSocialURL(link);
-                      return (
-                        url && (
-                          <li key={link.id}>
-                            <IconLink to={url}>
-                              <VisuallyHidden>
-                                {getSocialName(link)}
-                              </VisuallyHidden>
-                              {getSocialIcon(link)}
-                            </IconLink>
-                          </li>
-                        )
-                      );
-                    })}
-                </ul>
-              </MobileSocialsContainer>
-            </Flex>
-            <Space size={5} />
-            <Flex variant="start" responsive>
-              <FlexList variant="start" responsive>
-                {links &&
-                  links.map((link) => (
-                    <li key={link.id}>
-                      <NavLink to={link.href}>{link.text}</NavLink>
-                    </li>
-                  ))}
-              </FlexList>
-              <Space />
-              <FlexList>
-                {meta &&
-                  meta.map((link, i) => (
-                    <li key={i}>
-                      <NavLink to={link ? link.href : ""}>
-                        <Text variant="small">{link ? link.text : ""}</Text>
-                      </NavLink>
-                    </li>
-                  ))}
-              </FlexList>
-              <Text variant="small">{copyright}</Text>
-            </Flex>
-          </Container>
-          <Ornament />
-          {/* Uncomment if needed */}
-          {/* <StyledFooterImage src={Part} alt="" /> */}
-        </FooterContainer>
-      ) : (
-        <></>
-      )}
+      <FooterContainer as="footer">
+        <Container>
+          <Flex variant="start" responsive>
+            <NavLink to="/">
+              <VisuallyHidden>Home</VisuallyHidden>
+              <BrandLogo />
+            </NavLink>
+            <Space />
+            <MobileSocialsContainer socialLinks={socialLinks} />
+          </Flex>
+          <Space size={5} />
+          <Flex variant="start" responsive>
+            <FlexList variant="start" responsive>
+              {links &&
+                links.map((link) => (
+                  <li key={link.id}>
+                    <NavLink to={link.href}>{link.text}</NavLink>
+                  </li>
+                ))}
+            </FlexList>
+            <Space />
+            <FlexList>
+              {meta &&
+                meta.map((link, i) => (
+                  <li key={i}>
+                    <NavLink to={link ? link.href : ""}>
+                      <Text variant="small">{link ? link.text : ""}</Text>
+                    </NavLink>
+                  </li>
+                ))}
+            </FlexList>
+            <Text variant="small">{copyright}</Text>
+          </Flex>
+        </Container>
+        <Ornament />
+      </FooterContainer>
     </>
   );
 }
